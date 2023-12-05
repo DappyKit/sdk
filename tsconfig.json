@@ -1,0 +1,34 @@
+{
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts",
+    "typings/**/*.ts",
+    "*.ts",
+    "*.tsx",
+    "test/manual/script.js",
+    "webpack.config.ts"
+  ],
+  "compilerOptions": {
+    "lib": [
+      "dom"
+    ],
+    "alwaysStrict": true,
+    "target": "ES6",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "strict": true,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "rootDirs": [
+      "src"
+    ],
+    "outDir": "dist"
+  }
+}
