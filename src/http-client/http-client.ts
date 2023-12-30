@@ -1,4 +1,4 @@
-import fetch from 'node-fetch'
+import fetch, { BodyInit } from 'node-fetch'
 
 export class HttpClient {
   constructor(public readonly baseUrl: string) {}
@@ -30,7 +30,7 @@ export class HttpClient {
    * @param path Path to append to the base URL
    * @param formData Form data to post
    */
-  async postJson(path: string, formData: FormData): Promise<unknown> {
+  async postJson(path: string, formData: BodyInit): Promise<unknown> {
     return (
       await fetch(this.getUrl(path), {
         method: 'POST',
