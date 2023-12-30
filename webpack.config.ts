@@ -77,7 +77,7 @@ const base = async (env?: Partial<WebpackEnvParams>): Promise<Configuration> => 
       path,
       filename,
       sourceMapFilename: filename + '.map',
-      library: 'DappyKitSDK',
+      library: 'DappyKit',
       libraryTarget: 'umd',
       globalObject: 'this',
     },

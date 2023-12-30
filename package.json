@@ -23,6 +23,7 @@
   "keywords": [
     "web3",
     "web4",
+    "socialfi",
     "sdk",
     "dappykit",
     "dapps",
@@ -76,7 +77,12 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "@alchemy/aa-alchemy": "^1.2.3",
+    "@alchemy/aa-core": "^1.2.3",
+    "@alchemy/aa-ethers": "^1.2.3",
     "buffer": "^6.0.3",
-    "ethers": "^6.9.0"
+    "ethers": "^6.9.0",
+    "node-fetch": "^2.7.0",
+    "viem": "^1.21.1"
   }
 }
