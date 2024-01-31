@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/DappyKit/sdk/compare/v1.0.0...v1.1.0) (2024-01-31)
+
+
+### Features
+
+* filesystem changes management ([1430dac](https://github.com/DappyKit/sdk/commit/1430dac37d1a877f6b16071f80ae00171a55ab32))
+
 ## 1.0.0 (2023-12-30)
 
 
