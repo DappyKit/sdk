@@ -5,7 +5,7 @@ import { IConfig } from '../config'
 /**
  * Account abstraction
  */
-export class AccountAbstraction {
+export class Account {
   public readonly rpcHelper: RpcHelper
   constructor(
     public readonly config: IConfig,
@@ -17,7 +17,7 @@ export class AccountAbstraction {
   /**
    * Gets Smart Account address
    */
-  async getAccountAddress(): Promise<string> {
+  async getAddress(): Promise<string> {
     return this.rpcHelper.smartAccountSigner.getAddress()
   }
 }
