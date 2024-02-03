@@ -28,6 +28,8 @@ describe("Verify User's external account and deploy Smart Account", () => {
 
   it('should create an account via the gateway', async () => {
     const sdk = createSdk(optimismSepoliaConfig, ethers.Wallet.createRandom())
+    // todo timeout because of RpcHelper initialization and error "ReferenceError: You are trying to `import` a file after the Jest environment has been torn down."
+    await new Promise(resolve => setTimeout(resolve, 1000))
 
     const appId = 1
     const appSigner = ethers.Wallet.createRandom()
