@@ -1,7 +1,7 @@
 import { getChain, SimpleSmartContractAccount, SmartAccountSigner } from '@alchemy/aa-core'
-import { EthersProviderAdapter } from '@alchemy/aa-ethers'
-import { IConfig } from '../config'
-import { createRpcProvider } from './utils'
+import { AccountSigner, EthersProviderAdapter } from '@alchemy/aa-ethers'
+import { INetworkConfig } from '../network-config'
+import { createAARpcProvider } from './utils'
 import fetch from 'node-fetch'
 // todo for viem http request, would be great to configure it more elegant
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -9,18 +9,22 @@ import fetch from 'node-fetch'
 globalThis.fetch = fetch.default || fetch
 
 export class RpcHelper {
-  public readonly provider: EthersProviderAdapter
-  public readonly smartAccountSigner
-  constructor(config: IConfig, signer: SmartAccountSigner) {
-    this.provider = createRpcProvider(config)
-    const chain = getChain(config.chainId)
-    this.smartAccountSigner = this.provider.connectToAccount(
+  public readonly aaProvider: EthersProviderAdapter
+  public aaSigner: AccountSigner<SimpleSmartContractAccount>
+
+  constructor(
+    public readonly config: INetworkConfig,
+    public readonly signer: SmartAccountSigner,
+  ) {
+    this.aaProvider = createAARpcProvider(config)
+    const chain = getChain(this.config.chainId)
+    this.aaSigner = this.aaProvider.connectToAccount(
       rpcClient =>
         new SimpleSmartContractAccount({
-          entryPointAddress: config.entryPointAddress,
+          entryPointAddress: this.config.entryPointAddress,
           chain,
-          owner: signer,
-          factoryAddress: config.accountFactoryAddress,
+          owner: this.signer,
+          factoryAddress: this.config.accountFactoryAddress,
           rpcClient,
         }),
     )

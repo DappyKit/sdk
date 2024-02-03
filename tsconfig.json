@@ -6,7 +6,8 @@
     "*.ts",
     "*.tsx",
     "test/manual/script.js",
-    "webpack.config.ts"
+    "webpack.config.ts",
+    "jest.config.ts",
   ],
   "compilerOptions": {
     "lib": [
