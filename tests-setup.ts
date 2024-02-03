@@ -1,10 +1,5 @@
 import fetch from 'node-fetch'
 import 'dotenv/config'
-import * as fs from 'fs'
-
-// eslint-disable-next-line no-console
-console.log('TESTS SETUP', process.env)
-console.log('TESTS SETUP 222', fs.readFileSync('.env', 'utf8'))
 
 export default async function testsSetup(): Promise<void> {
   // await assertRpcAvailable()
