@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "prepublishOnly": "rimraf dist && npm run compile:types && npm run compile:browser --env mode=production && npm run compile:node --env mode=production",
-    "test": "jest",
+    "test": "jest --runInBand",
     "lint:check": "eslint \"src/**/*.ts\" \"test/**/*.ts\" && prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
     "check:types": "tsc --project tsconfig.test.json",
     "compile:node": "webpack --progress --env target=node",
@@ -78,12 +78,11 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@alchemy/aa-alchemy": "^1.2.3",
-    "@alchemy/aa-core": "^1.2.3",
-    "@alchemy/aa-ethers": "^1.2.3",
+    "@alchemy/aa-alchemy": "^2.4.0",
+    "@alchemy/aa-core": "^2.3.1",
+    "@alchemy/aa-ethers": "^2.3.1",
     "buffer": "^6.0.3",
     "ethers": "^6.9.0",
-    "node-fetch": "^2.7.0",
-    "viem": "^1.21.1"
+    "node-fetch": "^2.7.0"
   }
 }

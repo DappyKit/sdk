@@ -1,15 +1,14 @@
-import { IConfig } from '../config'
+import { INetworkConfig } from '../network-config'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { HDNodeWallet } from 'ethers'
 import { SmartAccountSigner } from '@alchemy/aa-core'
-import { SignTypedDataParameters } from 'viem/accounts'
 import { EthersProviderAdapter } from '@alchemy/aa-ethers'
 
 /**
- * Creates an EthersProviderAdapter from a config
+ * Creates an Account Abstraction EthersProviderAdapter from a config
  * @param config The config to use
  */
-export function createRpcProvider(config: IConfig): EthersProviderAdapter {
+export function createAARpcProvider(config: INetworkConfig): EthersProviderAdapter {
   return EthersProviderAdapter.fromEthersProvider(new JsonRpcProvider(config.rpcUserOperationsUrl, config.chainId))
 }
 
@@ -24,9 +23,8 @@ export const convertHDNodeWalletToAccountSigner = (wallet: HDNodeWallet): SmartA
     signerType: 'local',
     getAddress: async () => Promise.resolve(wallet.address as `0x${string}`),
     signMessage: async (msg: Uint8Array | string) => (await wallet.signMessage(msg)) as `0x${string}`,
-    signTypedData: async (params: Omit<SignTypedDataParameters, 'privateKey'>) => {
+    signTypedData: async () => {
       throw new Error('Converter for signTypedData is not implemented')
-      // return (await wallet.signTypedData(params.domain ?? {}, params.types, params.message)) as `0x${string}`
     },
   }
 }

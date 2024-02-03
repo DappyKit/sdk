@@ -1,9 +1,9 @@
-import { IConfig } from './IConfig'
+import { INetworkConfig } from './INetworkConfig'
 
 /**
  * Configuration for the Optimism Sepolia network
  */
-export const optimismSepoliaConfig: IConfig = {
+export const optimismSepoliaConfig: INetworkConfig = {
   networkName: 'Optimism Sepolia',
   chainId: 11155420,
   /**
@@ -23,7 +23,6 @@ export const optimismSepoliaConfig: IConfig = {
   userVerificationAddress: '0xBA44aaa2809931401ec099D798A5376cd678a12a',
   appAuthUrl: 'https://dappy.in',
   rpcUserOperationsUrl: 'https://opt-sepolia.g.alchemy.com/v2/vzozB27YgXBN9bXvQh5_AeyWVjDmfqGF',
-  rpcSimpleUrl: 'https://sepolia.optimism.io',
   userOperationsExplorerUrl: '',
   simpleExplorerUrl: 'https://sepolia-optimistic.etherscan.io',
 }

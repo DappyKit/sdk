@@ -1,6 +1,6 @@
 import { SmartAccountSigner } from '@alchemy/aa-core'
 import { RpcHelper } from '../rpc-helper'
-import { IConfig } from '../config'
+import { INetworkConfig } from '../network-config'
 
 /**
  * Account abstraction
@@ -8,7 +8,7 @@ import { IConfig } from '../config'
 export class Account {
   public readonly rpcHelper: RpcHelper
   constructor(
-    public readonly config: IConfig,
+    public readonly config: INetworkConfig,
     public readonly signer: SmartAccountSigner,
   ) {
     this.rpcHelper = new RpcHelper(config, signer)
@@ -18,6 +18,6 @@ export class Account {
    * Gets Smart Account address
    */
   async getAddress(): Promise<string> {
-    return this.rpcHelper.smartAccountSigner.getAddress()
+    return this.rpcHelper.aaSigner.getAddress()
   }
 }

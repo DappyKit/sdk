@@ -4,7 +4,7 @@ import { AppParamsResult, AuthStrategy } from '../../src/gateway/interface'
 import { ethers } from 'ethers'
 import { UserInfo, UserVerificationStatus } from '../../src/gateway/user/interface'
 import { GatewayUser } from '../../src/gateway'
-import { optimismSepoliaConfig } from '../../src/config/optimism-sepolia-config'
+import { optimismSepoliaConfig } from '../../src/network-config'
 
 describe("Verify User's external account and deploy Smart Account", () => {
   let getUserInfoMock: jest.SpyInstance

@@ -1,9 +1,9 @@
 import { Account } from './account'
 import { Gateway } from './gateway'
 import { Connections } from './connections'
-import * as Config from './config'
+import * as Config from './network-config'
 import * as Utils from './utils'
-import { IConfig } from './config'
+import { INetworkConfig } from './network-config'
 import { SmartAccountSigner } from '@alchemy/aa-core'
 import * as RpcHelperUtils from './rpc-helper/utils'
 import { Wallet, HDNodeWallet } from 'ethers'
@@ -21,13 +21,13 @@ export class SDK {
   public readonly filesystemChanges: FilesystemChanges
 
   constructor(
-    public readonly config: IConfig,
+    public readonly networkConfig: INetworkConfig,
     public readonly signer: SmartAccountSigner,
   ) {
-    this.account = new Account(config, signer)
-    this.gateway = new Gateway(config.appAuthUrl)
-    this.connections = new Connections(config, this.account.rpcHelper, signer)
-    this.filesystemChanges = new FilesystemChanges(config, this.account.rpcHelper, signer)
+    this.account = new Account(networkConfig, signer)
+    this.gateway = new Gateway(networkConfig.appAuthUrl)
+    this.connections = new Connections(networkConfig, this.account.rpcHelper, signer)
+    this.filesystemChanges = new FilesystemChanges(networkConfig, this.account.rpcHelper, signer)
   }
 }
 
@@ -39,7 +39,8 @@ declare global {
       Gateway: typeof import('./gateway').Gateway
       GatewayUser: typeof import('./gateway/gateway-user').GatewayUser
       Connections: typeof import('./connections').Connections
-      Config: typeof import('./config')
+      FilesystemChanges: typeof import('./filesystem-changes').FilesystemChanges
+      Config: typeof import('./network-config')
       Utils: typeof import('./utils')
       RpcHelperUtils: typeof RpcHelperUtils
       Wallet: typeof Wallet

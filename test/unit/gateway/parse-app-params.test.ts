@@ -1,6 +1,6 @@
 import { Gateway } from '../../../src'
 import { AppParamsResult } from '../../../src/gateway/interface'
-import { optimismSepoliaConfig } from '../../../src/config'
+import { optimismSepoliaConfig } from '../../../src/network-config'
 
 describe('Gateway parseAppParams', () => {
   const correctEthAddress = '0x4597b6281dDa29CA5a750CAe29Be3fd19c31727c'

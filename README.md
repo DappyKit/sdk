@@ -4,6 +4,10 @@ DappyKit is a TypeScript library for SocialFi apps, making it easy to join EVM-b
 
 DappyKit helps manage social connections and public data. With rollup gateways and ERC-4337, it's built to bring in up to 1 billion users at minimal cost.
 
+## Using
+
+...
+
 ## Installation
 
 ```shell
@@ -12,15 +16,17 @@ npm i @dappykit/sdk
 
 ## Testing
 
+### Install SDK dependencies and run tests
+
 ```shell
 npm ci
 npm run test
 ```
 
-### Optimism Sepolia
+### Run tests in Optimism Sepolia
 
 ```shell
-MNEMONIC='' EXPECTED_OWNER_ADDRESS='' EXPECTED_SMART_ACCOUNT_ADDRESS='' npm test
+MNEMONIC='YOUR_MNEMONIC' EXPECTED_OWNER_ADDRESS='YOUR_OWNER_ADDRESS' EXPECTED_SMART_ACCOUNT_ADDRESS='YOUR_ACCOUNT_ADDRESS' npm test
 ```
 `MNEMONIC` is the mnemonic phrase from an Optimism Sepolia wallet with funds.
 

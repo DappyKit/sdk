@@ -1,7 +1,7 @@
 /**
  * Interface for the configuration object
  */
-export interface IConfig {
+export interface INetworkConfig {
   /**
    * Name of the network
    */
@@ -46,8 +46,4 @@ export interface IConfig {
    * URL of the RPC server with UserOperations support
    */
   rpcUserOperationsUrl: string
-  /**
-   * URL of the RPC server without UserOperations support
-   */
-  rpcSimpleUrl: string
 }
