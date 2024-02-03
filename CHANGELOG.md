@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/DappyKit/sdk/compare/v1.1.0...v1.2.0) (2024-02-03)
+
+
+### Features
+
+* filesystem changes tests ([#4](https://github.com/DappyKit/sdk/issues/4)) ([35fb973](https://github.com/DappyKit/sdk/commit/35fb973d17767ecea163220e6d4d92dba974bef9))
+
 ## [1.1.0](https://github.com/DappyKit/sdk/compare/v1.0.0...v1.1.0) (2024-01-31)
 
 
