@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/DappyKit/sdk/compare/v1.2.0...v1.3.0) (2024-03-26)
+
+
+### Features
+
+* verification api ([#7](https://github.com/DappyKit/sdk/issues/7)) ([437a689](https://github.com/DappyKit/sdk/commit/437a68909b91afd91b9102f57c3b491a3a2017cc))
+
 ## [1.2.0](https://github.com/DappyKit/sdk/compare/v1.1.0...v1.2.0) (2024-02-03)
 
 
