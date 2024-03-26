@@ -6,16 +6,16 @@ import 'dotenv/config'
 
 export const WAIT_CONFIRMATIONS = 5
 
-export const MNEMONIC = process.env.OP_SEPOLIA_MNEMONIC!
+export const OP_SEPOLIA_MNEMONIC = process.env.OP_SEPOLIA_MNEMONIC!
 const EXPECTED_OWNER_ADDRESS = process.env.OP_SEPOLIAD_EXPECTED_OWNER_ADDRESS
 const EXPECTED_SMART_ACCOUNT_ADDRESS = process.env.OP_SEPOLIAD_EXPECTED_SMART_ACCOUNT_ADDRESS
 
 export function isNoData() {
-  return !MNEMONIC || !EXPECTED_OWNER_ADDRESS || !EXPECTED_SMART_ACCOUNT_ADDRESS
+  return !OP_SEPOLIA_MNEMONIC || !EXPECTED_OWNER_ADDRESS || !EXPECTED_SMART_ACCOUNT_ADDRESS
 }
 
 export function isNoMnemonic() {
-  return !MNEMONIC
+  return !OP_SEPOLIA_MNEMONIC
 }
 
 export const EMPTY_MULTIHASH = {

@@ -8,17 +8,19 @@ import { SmartAccountSigner } from '@alchemy/aa-core'
 import * as RpcHelperUtils from './rpc-helper/utils'
 import { Wallet, HDNodeWallet } from 'ethers'
 import { FilesystemChanges } from './filesystem-changes'
+import { Verification } from './verification'
 
 /**
  * Export all things that should be available for the user of the library
  */
-export { Account, Config, Gateway, Connections, Utils, SmartAccountSigner, RpcHelperUtils, Wallet }
+export { Account, Config, Gateway, Connections, Utils, SmartAccountSigner, RpcHelperUtils, Wallet, Verification }
 
 export class SDK {
   public readonly account: Account
   public readonly gateway: Gateway
   public readonly connections: Connections
   public readonly filesystemChanges: FilesystemChanges
+  public readonly verification: Verification
 
   constructor(
     public readonly networkConfig: INetworkConfig,
@@ -28,6 +30,7 @@ export class SDK {
     this.gateway = new Gateway(networkConfig.appAuthUrl)
     this.connections = new Connections(networkConfig, this.account.rpcHelper, signer)
     this.filesystemChanges = new FilesystemChanges(networkConfig, this.account.rpcHelper, signer)
+    this.verification = new Verification(networkConfig, this.account.rpcHelper, signer)
   }
 }
 
@@ -45,6 +48,7 @@ declare global {
       RpcHelperUtils: typeof RpcHelperUtils
       Wallet: typeof Wallet
       HDNodeWallet: typeof HDNodeWallet
+      Verification: typeof import('./verification').Verification
     }
   }
 }
