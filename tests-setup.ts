@@ -1,8 +1,19 @@
 import fetch from 'node-fetch'
 import 'dotenv/config'
+import { isNoMnemonic } from './test/utils/sdk'
 
 export default async function testsSetup(): Promise<void> {
   // await assertRpcAvailable()
+  assertTestnetMnemonic()
+}
+
+/**
+ * Assert that mnemonic is set in the env file
+ */
+function assertTestnetMnemonic(): void {
+  if (isNoMnemonic()) {
+    throw new Error('Testnet mnemonic is not set in env file. It is required for tests to run.')
+  }
 }
 
 export async function assertRpcAvailable(): Promise<void> {
