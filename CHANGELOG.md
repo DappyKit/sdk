@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/DappyKit/sdk/compare/v1.3.0...v1.4.0) (2024-03-29)
+
+
+### Features
+
+* added mainnet config ([#9](https://github.com/DappyKit/sdk/issues/9)) ([11c7e75](https://github.com/DappyKit/sdk/commit/11c7e753a0f5c1b4ff2b1426daff9fda431839ba))
+
 ## [1.3.0](https://github.com/DappyKit/sdk/compare/v1.2.0...v1.3.0) (2024-03-26)
 
 
