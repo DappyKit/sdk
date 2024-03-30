@@ -27,6 +27,10 @@ export const EMPTY_MULTIHASH = {
 /**
  * Create SDK instance
  */
-export function createSdk(config: INetworkConfig, wallet: HDNodeWallet): SDK {
-  return new SDK(config, convertHDNodeWalletToAccountSigner(wallet))
+export async function createSdk(config: INetworkConfig, wallet: HDNodeWallet): Promise<SDK> {
+  const sdk = new SDK(config, convertHDNodeWalletToAccountSigner(wallet))
+  // todo timeout because of RpcHelper initialization and error "ReferenceError: You are trying to `import` a file after the Jest environment has been torn down."
+  await new Promise(resolve => setTimeout(resolve, 1000))
+
+  return sdk
 }

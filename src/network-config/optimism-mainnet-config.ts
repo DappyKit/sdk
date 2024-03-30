@@ -27,5 +27,6 @@ export const optimismMainnetConfig: INetworkConfig = {
   appAuthUrl: 'https://dappy.in',
   rpcUserOperationsUrl: 'https://opt-mainnet.g.alchemy.com/v2/ublj-ZfkDCQxMSsTq-SWrGfHrfvGY58d',
   userOperationsExplorerUrl: '',
-  simpleExplorerUrl: 'https://explorer.optimism.io/',
+  simpleExplorerUrl: 'https://explorer.optimism.io',
+  verificationRpcUrl: 'https://verify.dappykit.org',
 }

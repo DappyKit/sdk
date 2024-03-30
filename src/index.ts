@@ -27,7 +27,7 @@ export class SDK {
     public readonly signer: SmartAccountSigner,
   ) {
     this.account = new Account(networkConfig, signer)
-    this.gateway = new Gateway(networkConfig.appAuthUrl)
+    this.gateway = new Gateway(networkConfig.appAuthUrl, networkConfig.verificationRpcUrl)
     this.connections = new Connections(networkConfig, this.account.rpcHelper, signer)
     this.filesystemChanges = new FilesystemChanges(networkConfig, this.account.rpcHelper, signer)
     this.verification = new Verification(networkConfig, this.account.rpcHelper, signer)

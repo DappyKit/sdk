@@ -7,7 +7,7 @@ describe('Gateway parseAppParams', () => {
   let gateway: Gateway
 
   beforeEach(() => {
-    gateway = new Gateway(optimismSepoliaConfig.appAuthUrl)
+    gateway = new Gateway(optimismSepoliaConfig.appAuthUrl, optimismSepoliaConfig.verificationRpcUrl)
   })
 
   it('should parse valid params with ok result', () => {

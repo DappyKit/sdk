@@ -4,16 +4,22 @@ import { APP_ID_PARAM, AUTH_APP_SIGNER_ADDRESS_PARAM, AUTH_STRATEGY_PARAM, GATEW
 import { parseAppParams, USER_PREFIX_PATH } from './utils'
 import { assert0xEthAddress } from '../utils/eth'
 import { HttpClient } from '../http-client/http-client'
+import { GatewayVerification } from './gateway-verification'
 
-export { GatewayUser }
+export { GatewayUser, GatewayVerification }
 
 export class Gateway {
   public readonly user: GatewayUser
-  public readonly httpClient: HttpClient
+  public readonly verification: GatewayVerification
+  public readonly gatewayHttpClient: HttpClient
 
-  constructor(private gatewayUrl: string) {
-    this.httpClient = new HttpClient(this.gatewayUrl)
-    this.user = new GatewayUser(new HttpClient(this.httpClient.getUrl(USER_PREFIX_PATH)))
+  constructor(
+    private gatewayUrl: string,
+    private verificationRpcUrl: string,
+  ) {
+    this.gatewayHttpClient = new HttpClient(this.gatewayUrl)
+    this.user = new GatewayUser(new HttpClient(this.gatewayHttpClient.getUrl(USER_PREFIX_PATH)))
+    this.verification = new GatewayVerification(new HttpClient(this.verificationRpcUrl))
   }
 
   /**
