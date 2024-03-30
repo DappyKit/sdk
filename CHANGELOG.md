@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/DappyKit/sdk/compare/v1.4.0...v1.5.0) (2024-03-30)
+
+
+### Features
+
+* farcaster verification ([#11](https://github.com/DappyKit/sdk/issues/11)) ([0c8e925](https://github.com/DappyKit/sdk/commit/0c8e9255c7ef5be86893611d18d7756bfb6998fd))
+
 ## [1.4.0](https://github.com/DappyKit/sdk/compare/v1.3.0...v1.4.0) (2024-03-29)
 
 
