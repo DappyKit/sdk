@@ -25,4 +25,5 @@ export const optimismSepoliaConfig: INetworkConfig = {
   rpcUserOperationsUrl: 'https://opt-sepolia.g.alchemy.com/v2/vzozB27YgXBN9bXvQh5_AeyWVjDmfqGF',
   userOperationsExplorerUrl: '',
   simpleExplorerUrl: 'https://sepolia-optimistic.etherscan.io',
+  verificationRpcUrl: 'https://verify-api-test.dappykit.org',
 }

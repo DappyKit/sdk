@@ -28,13 +28,16 @@ export class HttpClient {
   /**
    * Posts the given form data to the given path and returns the JSON response
    * @param path Path to append to the base URL
-   * @param formData Form data to post
+   * @param body Body to send in the request
    */
-  async postJson(path: string, formData: BodyInit): Promise<unknown> {
+  async postJson(path: string, body: unknown): Promise<unknown> {
     return (
       await fetch(this.getUrl(path), {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
       })
     ).json()
   }

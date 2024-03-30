@@ -46,4 +46,8 @@ export interface INetworkConfig {
    * URL of the RPC server with UserOperations support
    */
   rpcUserOperationsUrl: string
+  /**
+   * DappyKit verification RPC URL
+   */
+  verificationRpcUrl: string
 }
