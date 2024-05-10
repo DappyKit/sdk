@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Delegated FS Test</title>
+  <script src="../../dist/index.browser.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="./delegatedFs.js"></script>
+</head>
+<body>
+
+<div class="container mt-5">
+  <div class="mb-3">
+    <label for="targetFid" class="form-label">Target FID</label>
+    <input type="text" class="form-control" id="targetFid" value="366142" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="userAddress" class="form-label">User Address</label>
+    <input type="text" class="form-control" id="userAddress" value="0x1b8a42bc4700e4ef829bade11464f8849291def7"
+           required>
+  </div>
+
+  <div class="mb-3">
+    <label for="applicationAddress" class="form-label">Application Address</label>
+    <input type="text" class="form-control" id="applicationAddress" value="0x7BDb8e974Daac1df067C5F8Bd2d6CD94fCd7621E"
+           required>
+  </div>
+  <div class="mb-3">
+    <label for="applicationSigner" class="form-label">Application Signer (private key)</label>
+    <input type="text" class="form-control" id="applicationSigner" placeholder="0x..." required>
+  </div>
+  <div class="mb-3">
+    <label for="messageBytesProof" class="form-label">Message Bytes Proof (Farcaster message from target FID to the
+      Frame)</label>
+    <input type="text" class="form-control" id="messageBytesProof" placeholder="0x..." required>
+  </div>
+
+  <div class="mb-3">
+    <label for="data" class="form-label">Data</label>
+    <textarea class="form-control" id="data" rows="3" required></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="userDelegatedSigner" class="form-label">User Delegated Signer (private key)</label>
+    <input type="text" class="form-control" id="userDelegatedSigner" placeholder="0x..." required>
+  </div>
+
+  <div class="mb-3">
+    <button type="button" class="btn btn-primary" onclick="createAuthRequest()">Create Auth Request</button>
+    <button type="button" class="btn btn-primary" onclick="isAuthorized()">Is Authorized</button>
+    <button type="button" class="btn btn-primary" onclick="getAuthProofByAddress()">💁 Get Auth Proof by Address</button>
+    <br><br>
+    <button type="button" class="btn btn-primary" onclick="getDataByAddress()">ℹ️ Get Data by Address</button>
+    <button type="button" class="btn btn-primary" onclick="setDataByAddress()">💾️ Set Data</button>
+  </div>
+  <div id="output" class="alert alert-info">Output will appear here</div>
+</div>
+
+</body>
+</html>

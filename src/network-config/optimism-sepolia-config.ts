@@ -26,4 +26,6 @@ export const optimismSepoliaConfig: INetworkConfig = {
   userOperationsExplorerUrl: '',
   simpleExplorerUrl: 'https://sepolia-optimistic.etherscan.io',
   verificationRpcUrl: 'https://verify-api-test.dappykit.org',
+  farcasterAuthApiUrl: '',
+  farcasterAuthFrameUrl: '',
 }

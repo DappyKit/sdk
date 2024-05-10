@@ -9,28 +9,52 @@ import * as RpcHelperUtils from './rpc-helper/utils'
 import { Wallet, HDNodeWallet } from 'ethers'
 import { FilesystemChanges } from './filesystem-changes'
 import { Verification } from './verification'
+import { FarcasterClient } from './farcaster-client'
+import { HttpClient } from './http-client/http-client'
+import { convertHDNodeWalletToAccountSigner } from './rpc-helper/utils'
 
 /**
  * Export all things that should be available for the user of the library
  */
-export { Account, Config, Gateway, Connections, Utils, SmartAccountSigner, RpcHelperUtils, Wallet, Verification }
+export {
+  Account,
+  Config,
+  Gateway,
+  Connections,
+  Utils,
+  SmartAccountSigner,
+  RpcHelperUtils,
+  Wallet,
+  Verification,
+  FarcasterClient,
+}
 
 export class SDK {
+  public readonly signer: SmartAccountSigner
+
   public readonly account: Account
   public readonly gateway: Gateway
   public readonly connections: Connections
   public readonly filesystemChanges: FilesystemChanges
   public readonly verification: Verification
+  public readonly farcasterClient: FarcasterClient
 
   constructor(
     public readonly networkConfig: INetworkConfig,
-    public readonly signer: SmartAccountSigner,
+    signerOrMnemonic: SmartAccountSigner | string,
   ) {
-    this.account = new Account(networkConfig, signer)
+    if (typeof signerOrMnemonic === 'string') {
+      this.signer = convertHDNodeWalletToAccountSigner(HDNodeWallet.fromPhrase(signerOrMnemonic))
+    } else {
+      this.signer = signerOrMnemonic
+    }
+
+    this.account = new Account(networkConfig, this.signer)
     this.gateway = new Gateway(networkConfig.appAuthUrl, networkConfig.verificationRpcUrl)
-    this.connections = new Connections(networkConfig, this.account.rpcHelper, signer)
-    this.filesystemChanges = new FilesystemChanges(networkConfig, this.account.rpcHelper, signer)
-    this.verification = new Verification(networkConfig, this.account.rpcHelper, signer)
+    this.connections = new Connections(networkConfig, this.account.rpcHelper, this.signer)
+    this.filesystemChanges = new FilesystemChanges(networkConfig, this.account.rpcHelper, this.signer)
+    this.verification = new Verification(networkConfig, this.account.rpcHelper, this.signer)
+    this.farcasterClient = new FarcasterClient(networkConfig, new HttpClient(networkConfig.farcasterAuthApiUrl))
   }
 }
 
@@ -49,6 +73,7 @@ declare global {
       Wallet: typeof Wallet
       HDNodeWallet: typeof HDNodeWallet
       Verification: typeof import('./verification').Verification
+      FarcasterClient: typeof import('./farcaster-client').FarcasterClient
     }
   }
 }
