@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/DappyKit/sdk/compare/v1.5.0...v1.6.0) (2024-05-10)
+
+
+### Features
+
+* farcaster auth methods ([#15](https://github.com/DappyKit/sdk/issues/15)) ([7464cf6](https://github.com/DappyKit/sdk/commit/7464cf6ea8c4cb95b7b12152bacb2853bdd0f0c8))
+
 ## [1.5.0](https://github.com/DappyKit/sdk/compare/v1.4.0...v1.5.0) (2024-03-30)
 
 
