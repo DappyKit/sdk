@@ -63,7 +63,6 @@ export function assert0xEthAddress(value: unknown): asserts value is string {
   }
 }
 
-
 /**
  * Prepares the Ethereum address by removing the 0x prefix and converting it to lowercase.
  * @param address Ethereum address
