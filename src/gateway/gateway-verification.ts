@@ -24,9 +24,9 @@ export class GatewayVerification {
   async getSmartAccountInfo(address: string): Promise<ISmartAccountInfoResponse> {
     assert0xEthAddress(address)
 
-    return (await this.httpClient.getJson(
+    return this.httpClient.getJson<ISmartAccountInfoResponse>(
       `${this.version}/${INFO_PATH}/${METHOD_GET_SMART_ACCOUNT_INFO}?address=${address}`,
-    )) as ISmartAccountInfoResponse
+    )
   }
 
   /**
@@ -36,11 +36,11 @@ export class GatewayVerification {
    * @param smartAccountAddress Smart account address, can be empty
    */
   async verifyGoogle(data: string, eoaSignature: string, smartAccountAddress?: string): Promise<IVerifyResponse> {
-    return (await this.httpClient.postJson(`${this.version}/${VERIFY_PATH}/${METHOD_VERIFY_GOOGLE}`, {
+    return this.httpClient.postJson<IVerifyResponse>(`${this.version}/${VERIFY_PATH}/${METHOD_VERIFY_GOOGLE}`, {
       data,
       eoaSignature,
       smartAccountAddress,
-    })) as IVerifyResponse
+    })
   }
 
   /**
@@ -48,8 +48,8 @@ export class GatewayVerification {
    * @param clickData Click data
    */
   async verifyFarcaster(clickData: string): Promise<IVerifyResponse> {
-    return (await this.httpClient.postJson(`${this.version}/${VERIFY_PATH}/${METHOD_VERIFY_FARCASTER}`, {
+    return this.httpClient.postJson<IVerifyResponse>(`${this.version}/${VERIFY_PATH}/${METHOD_VERIFY_FARCASTER}`, {
       clickData,
-    })) as IVerifyResponse
+    })
   }
 }

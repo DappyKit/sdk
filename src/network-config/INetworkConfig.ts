@@ -50,4 +50,12 @@ export interface INetworkConfig {
    * DappyKit verification RPC URL
    */
   verificationRpcUrl: string
+  /**
+   * Farcaster Auth Frame URL
+   */
+  farcasterAuthFrameUrl: string
+  /**
+   * Farcaster Auth API URL
+   */
+  farcasterAuthApiUrl: string
 }

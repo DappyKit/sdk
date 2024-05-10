@@ -29,4 +29,6 @@ export const optimismMainnetConfig: INetworkConfig = {
   userOperationsExplorerUrl: '',
   simpleExplorerUrl: 'https://explorer.optimism.io',
   verificationRpcUrl: 'https://verify.dappykit.org',
+  farcasterAuthFrameUrl: 'https://farcaster-auth-frame.dappykit.org',
+  farcasterAuthApiUrl: 'https://farcaster-auth-api.dappykit.org',
 }

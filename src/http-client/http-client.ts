@@ -17,12 +17,12 @@ export class HttpClient {
    * Gets the JSON response for the given path
    * @param path Path to append to the base URL
    */
-  async getJson(path: string): Promise<unknown> {
-    return (
+  async getJson<T>(path: string): Promise<T> {
+    return (await (
       await fetch(this.getUrl(path), {
         method: 'GET',
       })
-    ).json()
+    ).json()) as T
   }
 
   /**
@@ -30,8 +30,8 @@ export class HttpClient {
    * @param path Path to append to the base URL
    * @param body Body to send in the request
    */
-  async postJson(path: string, body: unknown): Promise<unknown> {
-    return (
+  async postJson<T>(path: string, body: unknown): Promise<T> {
+    return (await (
       await fetch(this.getUrl(path), {
         method: 'POST',
         headers: {
@@ -39,6 +39,14 @@ export class HttpClient {
         },
         body: JSON.stringify(body),
       })
-    ).json()
+    ).json()) as T
+  }
+
+  async getText(path: string): Promise<string> {
+    return await (
+      await fetch(this.getUrl(path), {
+        method: 'GET',
+      })
+    ).text()
   }
 }
