@@ -5,6 +5,19 @@ const optimismMainnetConfig = window.DappyKit.Config.optimismMainnetConfig
 // example how to create SDK instance with mnemonic
 const sdkMainnet = new window.DappyKit.SDK(optimismMainnetConfig, mnemonic)
 
+function getAuthServiceAddress() {
+  const authServiceAddress = document.getElementById('authServiceAddress').value
+
+  if (!authServiceAddress) {
+    // eslint-disable-next-line no-alert
+    alert('Please provide auth service address')
+
+    return
+  }
+
+  return authServiceAddress
+}
+
 function getUserDelegatedSigner() {
   const userDelegatedSigner = document.getElementById('userDelegatedSigner').value
 
@@ -118,9 +131,25 @@ async function getDataByAddress() {
 
 async function getAuthProofByAddress() {
   clearOutput()
-  setOutput(
-    JSON.stringify(await sdkMainnet.farcasterClient.getAuthProofByAddress(getUserAddress(), getApplicationAddress())),
-  )
+
+  const proofData = await sdkMainnet.farcasterClient.getAuthProofByAddress(getUserAddress(), getApplicationAddress())
+  try {
+    sdkMainnet.farcasterClient.checkCallbackData(
+      {
+        userMainAddress: proofData.userMainAddress,
+        userDelegatedAddress: proofData.userDelegatedAddress,
+        applicationAddress: proofData.applicationAddress,
+        proof: proofData.authServiceProof,
+      },
+      getApplicationAddress(),
+      getAuthServiceAddress(),
+    )
+  } catch (e) {
+    // eslint-disable-next-line no-alert
+    alert(`Incorrect callback data: ${e.message}`)
+  }
+
+  setOutput(JSON.stringify(proofData))
 }
 
 async function setDataByAddress() {

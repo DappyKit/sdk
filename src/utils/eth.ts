@@ -1,5 +1,6 @@
 import { hexToBytes, is0xHexString, isHexString, makeHexString } from './hex'
 import { assertBytes, Bytes } from './bytes'
+import { verifyMessage } from 'ethers'
 
 const ETH_ADDR_BYTES_LENGTH = 20
 export const ETH_SIGNATURE_0X_HEX_LENGTH = 132
@@ -89,4 +90,13 @@ export function prepareEthSignature(signature: string): string {
  */
 export function is0xEthSignature(value: unknown): value is string {
   return is0xHexString(value) && value.length === ETH_SIGNATURE_0X_HEX_LENGTH
+}
+
+/**
+ * Extract the signer address from the data and signature
+ * @param data Data to extract the signer address from
+ * @param signature Signature to extract the signer address from
+ */
+export function extractSignerAddress(data: string, signature: string): string {
+  return prepareEthAddress(verifyMessage(data, signature))
 }
