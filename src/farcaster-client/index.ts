@@ -2,7 +2,7 @@ import { INetworkConfig } from '../network-config'
 import { HttpClient } from '../http-client/http-client'
 import { DelegatedFs } from '../service/delegated-fs/delegated-fs'
 import { ISigner } from '../service/delegated-fs/interfaces'
-import { prepareEthAddress } from '../utils/eth'
+import { extractSignerAddress, isEthAddress, prepareEthAddress, prepareEthSignature } from '../utils/eth'
 
 export interface IUserInfo {
   nonce: number
@@ -20,11 +20,7 @@ export interface ICreateResponse {
   message?: string
 }
 
-export interface IGetProofResponse {
-  /**
-   * Status of the response
-   */
-  status: string
+export interface IAddressesInfo {
   /**
    * User main address in the form of hex without 0x prefix
    */
@@ -37,6 +33,13 @@ export interface IGetProofResponse {
    * Application address in the form of hex without 0x prefix
    */
   applicationAddress: string
+}
+
+export interface IGetProofResponse extends IAddressesInfo {
+  /**
+   * Status of the response
+   */
+  status: string
   /**
    * Authentication service proof in the form of hex without 0x prefix
    */
@@ -45,6 +48,24 @@ export interface IGetProofResponse {
    * Proof signature from 3rd party service in the form of hex without 0x prefix
    */
   serviceProof: string
+}
+
+export interface ICallbackDataCheck extends IAddressesInfo {
+  /**
+   * Auth service proof signature
+   */
+  proof: string
+}
+
+export interface ICallbackData extends ICallbackDataCheck {
+  /**
+   * Is the request successful
+   */
+  success: boolean
+  /**
+   * Request ID
+   */
+  requestId: number
 }
 
 export class FarcasterClient {
@@ -155,5 +176,47 @@ export class FarcasterClient {
     return this.httpClient.getJson<IGetProofResponse>(
       `v1/authorization/get-proof?userAddress=${userAddress}&applicationAddress=${applicationAddress}`,
     )
+  }
+
+  /**
+   * Checks the callback data correctness.
+   * @param data Callback data
+   * @param expectedApplicationAddress Expected application address
+   * @param expectedAuthServiceAddress Expected auth service address
+   */
+  public checkCallbackData(
+    data: ICallbackDataCheck,
+    expectedApplicationAddress: string,
+    expectedAuthServiceAddress: string,
+  ): void {
+    data.userMainAddress = prepareEthAddress(data.userMainAddress)
+    data.userDelegatedAddress = prepareEthAddress(data.userDelegatedAddress)
+    data.applicationAddress = prepareEthAddress(data.applicationAddress)
+    expectedApplicationAddress = prepareEthAddress(expectedApplicationAddress)
+    expectedAuthServiceAddress = prepareEthAddress(expectedAuthServiceAddress)
+    ;[
+      data.userMainAddress,
+      data.userDelegatedAddress,
+      data.applicationAddress,
+      expectedApplicationAddress,
+      expectedAuthServiceAddress,
+    ].forEach(address => {
+      if (!isEthAddress(address)) {
+        throw new Error(`Invalid address: ${address}`)
+      }
+    })
+
+    if (data.applicationAddress !== expectedApplicationAddress) {
+      throw new Error('Invalid application address')
+    }
+
+    if (
+      extractSignerAddress(
+        DelegatedFs.getDelegatedText(data.userMainAddress, data.userDelegatedAddress, expectedApplicationAddress),
+        `0x${prepareEthSignature(data.proof)}`,
+      ) !== expectedAuthServiceAddress
+    ) {
+      throw new Error('Invalid proof')
+    }
   }
 }
