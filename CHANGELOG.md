@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/DappyKit/sdk/compare/v1.6.0...v1.7.0) (2024-05-11)
+
+
+### Features
+
+* callback data verification ([#17](https://github.com/DappyKit/sdk/issues/17)) ([8453423](https://github.com/DappyKit/sdk/commit/8453423788e229eaf7e0cdaec3ca2bbb8bcbe631))
+
 ## [1.6.0](https://github.com/DappyKit/sdk/compare/v1.5.0...v1.6.0) (2024-05-10)
 
 
