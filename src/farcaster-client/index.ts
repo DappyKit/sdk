@@ -2,9 +2,9 @@ import { INetworkConfig } from '../network-config'
 import { HttpClient } from '../http-client/http-client'
 import { DelegatedFs } from '../service/delegated-fs/delegated-fs'
 import { ISigner } from '../service/delegated-fs/interfaces'
-import { extractSignerAddress, isEthAddress, prepareEthAddress, prepareEthSignature } from '../utils/eth'
-import { JsonRpcProvider } from '@ethersproject/providers'
-import { Contract } from '@ethersproject/contracts'
+import { extractSignerAddress, isEthAddress, prepareEthAddress } from '../utils/eth'
+import { createPublicClient, http } from 'viem'
+import { optimism } from 'viem/chains'
 
 export interface IUserInfo {
   nonce: number
@@ -57,17 +57,6 @@ export interface ICallbackDataCheck extends IAddressesInfo {
    * Auth service proof signature
    */
   proof: string
-}
-
-export interface ICallbackData extends ICallbackDataCheck {
-  /**
-   * Is the request successful
-   */
-  success: boolean
-  /**
-   * Request ID
-   */
-  requestId: number
 }
 
 export class FarcasterClient {
@@ -186,11 +175,11 @@ export class FarcasterClient {
    * @param expectedApplicationAddress Expected application address
    * @param expectedAuthServiceAddress Expected auth service address
    */
-  public checkCallbackData(
+  public async checkCallbackData(
     data: ICallbackDataCheck,
     expectedApplicationAddress: string,
     expectedAuthServiceAddress: string,
-  ): void {
+  ): Promise<void> {
     data.userMainAddress = prepareEthAddress(data.userMainAddress)
     data.userDelegatedAddress = prepareEthAddress(data.userDelegatedAddress)
     data.applicationAddress = prepareEthAddress(data.applicationAddress)
@@ -213,10 +202,10 @@ export class FarcasterClient {
     }
 
     if (
-      extractSignerAddress(
+      (await extractSignerAddress(
         DelegatedFs.getDelegatedText(data.userMainAddress, data.userDelegatedAddress, expectedApplicationAddress),
-        `0x${prepareEthSignature(data.proof)}`,
-      ) !== expectedAuthServiceAddress
+        data.proof,
+      )) !== expectedAuthServiceAddress
     ) {
       throw new Error('Invalid proof')
     }
@@ -225,18 +214,24 @@ export class FarcasterClient {
   /**
    * Gets the custody address of the FID.
    * @param fid FID
-   * @param rpcUrl RPC URL
+   * @param chain RPC URL
    * @param contractAddress Contract address
    */
   public async getCustodyAddress(
     fid: number,
-    rpcUrl = 'https://mainnet.optimism.io/',
+    chain = optimism,
     contractAddress = '0x00000000fc6c5f01fc30151999387bb99a9f489b',
   ): Promise<string> {
-    const provider = new JsonRpcProvider(rpcUrl)
-    const contractABI = ['function custodyOf(uint256) external view returns (address)']
-    const contract = new Contract(contractAddress, contractABI, provider)
+    const client = createPublicClient({
+      chain,
+      transport: http(),
+    })
 
-    return contract.custodyOf(fid)
+    return (await client.readContract({
+      address: contractAddress as `0x${string}`,
+      abi: ['function custodyOf(uint256) external view returns (address)'],
+      functionName: 'custodyOf',
+      args: [fid],
+    })) as string
   }
 }
