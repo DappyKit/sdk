@@ -1,38 +1,45 @@
 import { assert0xEthAddress } from '../utils/eth'
-import { assertNotEmptySigner } from './utils'
-import { SmartAccountSigner } from '@alchemy/aa-core'
 import { INetworkConfig } from '../network-config'
-import { Contract } from '@ethersproject/contracts'
 import abi from './abi.json'
 import { Multihash } from '../utils/multihash'
-import { parseUnits } from 'ethers'
 import { RpcHelper } from '../rpc-helper'
-import { type TransactionResponse } from '@ethersproject/providers'
+import { HDAccount } from 'viem/accounts'
+import { encodeFunctionData, getContract, Hash, parseEther } from 'viem'
+import { assertNotEmptySigner } from './utils'
 
 export class Connections {
-  public readonly contract: Contract
+  public readonly contract
   constructor(
     public readonly config: INetworkConfig,
     public rpcHelper: RpcHelper,
-    public signer: SmartAccountSigner,
+    public signer: HDAccount,
   ) {
-    // instantiate the contract for read-only operations
-    this.contract = new Contract(config.socialConnectionsAddress, abi, rpcHelper.aaSigner)
+    this.contract = getContract({
+      address: config.socialConnectionsAddress as `0x${string}`,
+      abi,
+      client: {
+        public: this.rpcHelper.publicClient,
+      },
+    })
   }
 
   /**
    * Sets the user connection multihash without a rollup gateway
    * @param multihash Multihash
    */
-  async setUserConnection(multihash: Multihash): Promise<TransactionResponse> {
+  async setUserConnection(multihash: Multihash): Promise<Hash> {
     assertNotEmptySigner(this.signer)
-    const data = this.contract.interface.encodeFunctionData('setUserConnection', [multihash])
 
-    return this.rpcHelper.aaSigner.sendTransaction({
-      from: await this.signer.getAddress(),
-      to: this.config.socialConnectionsAddress,
+    const data = encodeFunctionData({
+      abi: this.contract.abi,
+      functionName: 'setUserConnection',
+      args: [multihash],
+    })
+
+    return (await this.rpcHelper.getAccountClient()).sendTransaction({
+      to: this.config.socialConnectionsAddress as `0x${string}`,
+      value: parseEther('0'),
       data,
-      value: parseUnits('0', 'ether'),
     })
   }
 
@@ -40,15 +47,18 @@ export class Connections {
    * Sets the service connection multihash
    * @param multihash Multihash
    */
-  async setServiceConnection(multihash: Multihash): Promise<TransactionResponse> {
+  async setServiceConnection(multihash: Multihash): Promise<Hash> {
     assertNotEmptySigner(this.signer)
-    const data = this.contract.interface.encodeFunctionData('setServiceConnection', [multihash])
+    const data = encodeFunctionData({
+      abi: this.contract.abi,
+      functionName: 'setServiceConnection',
+      args: [multihash],
+    })
 
-    return this.rpcHelper.aaSigner.sendTransaction({
-      from: await this.signer.getAddress(),
-      to: this.config.socialConnectionsAddress,
+    return (await this.rpcHelper.getAccountClient()).sendTransaction({
+      to: this.config.socialConnectionsAddress as `0x${string}`,
+      value: parseEther('0'),
       data,
-      value: parseUnits('0', 'ether'),
     })
   }
 
@@ -59,7 +69,9 @@ export class Connections {
   async getUserConnectionMultihash(address: string): Promise<Multihash> {
     assert0xEthAddress(address)
 
-    const { hash, hashFunction, size } = await this.contract.functions.userConnections(address)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const [hash, hashFunction, size] = await this.contract.read.userConnections([address])
 
     return {
       hash,
@@ -75,7 +87,9 @@ export class Connections {
   async getServiceConnectionMultihash(address: string): Promise<Multihash> {
     assert0xEthAddress(address)
 
-    const { hash, hashFunction, size } = await this.contract.functions.serviceConnections(address)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const [hash, hashFunction, size] = await this.contract.read.serviceConnections([address])
 
     return {
       hash,
