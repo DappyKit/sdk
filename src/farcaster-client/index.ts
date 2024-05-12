@@ -3,6 +3,8 @@ import { HttpClient } from '../http-client/http-client'
 import { DelegatedFs } from '../service/delegated-fs/delegated-fs'
 import { ISigner } from '../service/delegated-fs/interfaces'
 import { extractSignerAddress, isEthAddress, prepareEthAddress, prepareEthSignature } from '../utils/eth'
+import { JsonRpcProvider } from '@ethersproject/providers'
+import { Contract } from '@ethersproject/contracts'
 
 export interface IUserInfo {
   nonce: number
@@ -218,5 +220,23 @@ export class FarcasterClient {
     ) {
       throw new Error('Invalid proof')
     }
+  }
+
+  /**
+   * Gets the custody address of the FID.
+   * @param fid FID
+   * @param rpcUrl RPC URL
+   * @param contractAddress Contract address
+   */
+  public async getCustodyAddress(
+    fid: number,
+    rpcUrl = 'https://mainnet.optimism.io/',
+    contractAddress = '0x00000000fc6c5f01fc30151999387bb99a9f489b',
+  ): Promise<string> {
+    const provider = new JsonRpcProvider(rpcUrl)
+    const contractABI = ['function custodyOf(uint256) external view returns (address)']
+    const contract = new Contract(contractAddress, contractABI, provider)
+
+    return contract.custodyOf(fid)
   }
 }

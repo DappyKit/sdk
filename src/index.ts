@@ -6,12 +6,14 @@ import * as Utils from './utils'
 import { INetworkConfig } from './network-config'
 import { SmartAccountSigner } from '@alchemy/aa-core'
 import * as RpcHelperUtils from './rpc-helper/utils'
-import { Wallet, HDNodeWallet } from 'ethers'
+import { ethers } from 'ethers'
 import { FilesystemChanges } from './filesystem-changes'
 import { Verification } from './verification'
 import { FarcasterClient } from './farcaster-client'
 import { HttpClient } from './http-client/http-client'
 import { convertHDNodeWalletToAccountSigner } from './rpc-helper/utils'
+
+const { Wallet, HDNodeWallet } = ethers
 
 /**
  * Export all things that should be available for the user of the library
@@ -27,6 +29,7 @@ export {
   Wallet,
   Verification,
   FarcasterClient,
+  ethers,
 }
 
 export class SDK {
@@ -74,6 +77,7 @@ declare global {
       HDNodeWallet: typeof HDNodeWallet
       Verification: typeof import('./verification').Verification
       FarcasterClient: typeof import('./farcaster-client').FarcasterClient
+      ethers: typeof ethers
     }
   }
 }
