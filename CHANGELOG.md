@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/DappyKit/sdk/compare/v1.7.0...v1.8.0) (2024-05-12)
+
+
+### Features
+
+* exposed ethers, added getter of custody address ([#19](https://github.com/DappyKit/sdk/issues/19)) ([e9944ec](https://github.com/DappyKit/sdk/commit/e9944ec1538c1d9b77a872c03b43dc226ce704f7))
+
 ## [1.7.0](https://github.com/DappyKit/sdk/compare/v1.6.0...v1.7.0) (2024-05-11)
 
 
