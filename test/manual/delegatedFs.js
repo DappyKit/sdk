@@ -1,3 +1,4 @@
+const ethers = window.DappyKit.ethers
 const wallet = window.DappyKit.Wallet.createRandom()
 const mnemonic = wallet.mnemonic.phrase
 const optimismMainnetConfig = window.DappyKit.Config.optimismMainnetConfig
@@ -171,4 +172,13 @@ async function setDataByAddress() {
         ),
       ),
   )
+}
+
+async function getCustodyAddress() {
+  try {
+    const result = await sdkMainnet.farcasterClient.getCustodyAddress(getTargetFid())
+    setOutput(`Custody Address: ${result}`)
+  } catch (error) {
+    setOutput('Error calling contract:' + JSON.stringify(error))
+  }
 }
