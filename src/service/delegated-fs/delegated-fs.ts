@@ -1,4 +1,4 @@
-import { verifyMessage } from 'ethers'
+import { recoverMessageAddress } from 'viem'
 import { prepareEthAddress, prepareEthSignature } from '../../utils/eth'
 import {
   DEFAULT_DELEGATED_FS_OPTIONS,
@@ -87,8 +87,13 @@ export class DelegatedFs {
    * @param signature Signature
    * @private
    */
-  private extractSignerAddress(data: string, signature: string): string {
-    return prepareEthAddress(verifyMessage(data, `0x${signature}`))
+  private async extractSignerAddress(data: string, signature: string): Promise<string> {
+    return prepareEthAddress(
+      await recoverMessageAddress({
+        message: data,
+        signature: `0x${signature}`,
+      }),
+    )
   }
 
   /**
@@ -99,11 +104,11 @@ export class DelegatedFs {
    * @private
    */
   private async checkProof(userAddress: string, data: string, proof: IDelegatedProof) {
-    const userDelegatedAddress = this.extractSignerAddress(
+    const userDelegatedAddress = await this.extractSignerAddress(
       `${proof.nonce}${data}`,
       proof.applicationDelegateDataSignature,
     )
-    const extractedAddress = this.extractSignerAddress(
+    const extractedAddress = await this.extractSignerAddress(
       DelegatedFs.getDelegatedText(userAddress, userDelegatedAddress, proof.applicationAddress),
       proof.authServiceProof,
     )

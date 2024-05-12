@@ -1,6 +1,6 @@
 import { hexToBytes, is0xHexString, isHexString, makeHexString } from './hex'
 import { assertBytes, Bytes } from './bytes'
-import { verifyMessage } from 'ethers'
+import { recoverMessageAddress } from 'viem'
 
 const ETH_ADDR_BYTES_LENGTH = 20
 export const ETH_SIGNATURE_0X_HEX_LENGTH = 132
@@ -97,6 +97,11 @@ export function is0xEthSignature(value: unknown): value is string {
  * @param data Data to extract the signer address from
  * @param signature Signature to extract the signer address from
  */
-export function extractSignerAddress(data: string, signature: string): string {
-  return prepareEthAddress(verifyMessage(data, signature))
+export async function extractSignerAddress(data: string, signature: string): Promise<string> {
+  return prepareEthAddress(
+    await recoverMessageAddress({
+      message: data,
+      signature: `0x${prepareEthSignature(signature)}`,
+    }),
+  )
 }

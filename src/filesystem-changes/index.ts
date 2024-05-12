@@ -1,41 +1,49 @@
-import { Contract } from '@ethersproject/contracts'
 import { INetworkConfig } from '../network-config'
 import { RpcHelper } from '../rpc-helper'
-import { SmartAccountSigner } from '@alchemy/aa-core'
 import abi from './abi.json'
 import { Multihash } from '../utils/multihash'
-import type { TransactionResponse } from '@ethersproject/providers'
 import { assertNotEmptySigner } from '../connections/utils'
-import { parseUnits } from 'ethers'
+import { encodeFunctionData, getContract, Hash, parseEther } from 'viem'
+import { HDAccount } from 'viem/accounts'
+import { assert0xEthAddress } from '../utils/eth'
 
 export class FilesystemChanges {
   /**
    * File System Changes contract
    */
-  public readonly contract: Contract
+  public readonly contract
 
   constructor(
     public readonly config: INetworkConfig,
     public rpcHelper: RpcHelper,
-    public signer: SmartAccountSigner,
+    public signer: HDAccount,
   ) {
-    // instantiate the contract for read-only operations
-    this.contract = new Contract(config.filesystemChangesAddress, abi, rpcHelper.aaProvider)
+    this.contract = getContract({
+      address: config.filesystemChangesAddress as `0x${string}`,
+      abi,
+      client: {
+        public: this.rpcHelper.publicClient,
+      },
+    })
   }
 
   /**
    * Sets user changes multihash
    * @param multihash Multihash
    */
-  async setUserChange(multihash: Multihash): Promise<TransactionResponse> {
+  async setUserChange(multihash: Multihash): Promise<Hash> {
     assertNotEmptySigner(this.signer)
-    const data = this.contract.interface.encodeFunctionData('setUserChange', [multihash])
 
-    return this.rpcHelper.aaSigner.sendTransaction({
-      from: await this.rpcHelper.aaSigner.getAddress(),
-      to: this.config.filesystemChangesAddress,
+    const data = encodeFunctionData({
+      abi: this.contract.abi,
+      functionName: 'setUserChange',
+      args: [multihash],
+    })
+
+    return (await this.rpcHelper.getAccountClient()).sendTransaction({
+      to: this.config.filesystemChangesAddress as `0x${string}`,
+      value: parseEther('0'),
       data,
-      value: parseUnits('0', 'ether'),
     })
   }
 
@@ -43,15 +51,19 @@ export class FilesystemChanges {
    * Sets service changes multihash
    * @param multihash Multihash
    */
-  async setServiceChange(multihash: Multihash): Promise<TransactionResponse> {
+  async setServiceChange(multihash: Multihash): Promise<Hash> {
     assertNotEmptySigner(this.signer)
-    const data = this.contract.interface.encodeFunctionData('setServiceChange', [multihash])
 
-    return this.rpcHelper.aaSigner.sendTransaction({
-      from: await this.signer.getAddress(),
-      to: this.config.filesystemChangesAddress,
+    const data = encodeFunctionData({
+      abi: this.contract.abi,
+      functionName: 'setServiceChange',
+      args: [multihash],
+    })
+
+    return (await this.rpcHelper.getAccountClient()).sendTransaction({
+      to: this.config.filesystemChangesAddress as `0x${string}`,
+      value: parseEther('0'),
       data,
-      value: parseUnits('0', 'ether'),
     })
   }
 
@@ -59,15 +71,19 @@ export class FilesystemChanges {
    * Removes user changes multihash
    * @param isService Is service or user
    */
-  async removeChange(isService: boolean): Promise<TransactionResponse> {
+  async removeChange(isService: boolean): Promise<Hash> {
     assertNotEmptySigner(this.signer)
-    const data = this.contract.interface.encodeFunctionData('removeChange', [isService])
 
-    return this.rpcHelper.aaSigner.sendTransaction({
-      from: await this.signer.getAddress(),
-      to: this.config.filesystemChangesAddress,
+    const data = encodeFunctionData({
+      abi: this.contract.abi,
+      functionName: 'removeChange',
+      args: [isService],
+    })
+
+    return (await this.rpcHelper.getAccountClient()).sendTransaction({
+      to: this.config.filesystemChangesAddress as `0x${string}`,
+      value: parseEther('0'),
       data,
-      value: parseUnits('0', 'ether'),
     })
   }
 
@@ -76,7 +92,11 @@ export class FilesystemChanges {
    * @param address Address of the user
    */
   async getUserChangeMultihash(address: string): Promise<Multihash> {
-    const { hash, hashFunction, size } = await this.contract.callStatic.userChanges(address)
+    assert0xEthAddress(address)
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const [hash, hashFunction, size] = await this.contract.read.userChanges([address])
 
     return {
       hash,
@@ -90,7 +110,11 @@ export class FilesystemChanges {
    * @param address Address of the service
    */
   async getServiceChangeMultihash(address: string): Promise<Multihash> {
-    const { hash, hashFunction, size } = await this.contract.callStatic.serviceChanges(address)
+    assert0xEthAddress(address)
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const [hash, hashFunction, size] = await this.contract.read.serviceChanges([address])
 
     return {
       hash,
