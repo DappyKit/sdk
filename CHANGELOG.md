@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0](https://github.com/DappyKit/sdk/compare/v2.3.0...v2.4.0) (2024-05-13)
+
+
+### Features
+
+* correct path to empty module ([#29](https://github.com/DappyKit/sdk/issues/29)) ([c81b3a5](https://github.com/DappyKit/sdk/commit/c81b3a57b3ed8d502f05fee3f532e95f4bde1bd1))
+
 ## [2.3.0](https://github.com/DappyKit/sdk/compare/v2.2.0...v2.3.0) (2024-05-13)
 
 
