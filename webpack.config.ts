@@ -67,15 +67,16 @@ const base = async (env?: Partial<WebpackEnvParams>): Promise<Configuration> => 
       new NormalModuleReplacementPlugin(/blob-polyfill/, Path.resolve(__dirname, 'src', 'polyfills', 'Blob.js')),
     )
   }
+  const emptyModulePath = './emptyModule.js'
 
   return {
     externals: {
-      '@scure/bip39/wordlists/korean': Path.resolve(__dirname, 'src/emptyModule.js'),
-      '@scure/bip39/wordlists/japanese': Path.resolve(__dirname, 'src/emptyModule.js'),
-      '@scure/bip39/wordlists/french': Path.resolve(__dirname, 'src/emptyModule.js'),
-      '@scure/bip39/wordlists/italian': Path.resolve(__dirname, 'src/emptyModule.js'),
-      '@scure/bip39/wordlists/spanish': Path.resolve(__dirname, 'src/emptyModule.js'),
-      '@scure/bip39/wordlists/czech': Path.resolve(__dirname, 'src/emptyModule.js'),
+      '@scure/bip39/wordlists/korean': emptyModulePath,
+      '@scure/bip39/wordlists/japanese': emptyModulePath,
+      '@scure/bip39/wordlists/french': emptyModulePath,
+      '@scure/bip39/wordlists/italian': emptyModulePath,
+      '@scure/bip39/wordlists/spanish': emptyModulePath,
+      '@scure/bip39/wordlists/czech': emptyModulePath,
     },
     bail: Boolean(isProduction),
     mode: env?.mode || 'development',
