@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/DappyKit/sdk/compare/v1.8.0...v2.0.0) (2024-05-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* migrated to viem and permissionless.js ([#21](https://github.com/DappyKit/sdk/issues/21))
+
+### Features
+
+* migrated to viem and permissionless.js ([#21](https://github.com/DappyKit/sdk/issues/21)) ([1038e68](https://github.com/DappyKit/sdk/commit/1038e6846ff422c534900a241a027db4db850af1))
+
 ## [1.8.0](https://github.com/DappyKit/sdk/compare/v1.7.0...v1.8.0) (2024-05-12)
 
 
