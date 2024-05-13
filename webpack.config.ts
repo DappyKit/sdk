@@ -113,7 +113,7 @@ const base = async (env?: Partial<WebpackEnvParams>): Promise<Configuration> => 
               // into invalid ecma 5 code. This is why the 'compress' and 'output'
               // sections only apply transformations that are ecma 5 safe
               // https://github.com/facebook/create-react-app/pull/4234
-              ecma: 2018,
+              ecma: 2020,
             },
             compress: {
               ecma: 5,

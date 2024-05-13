@@ -1,6 +1,6 @@
-import { SmartAccountSigner } from '@alchemy/aa-core'
 import { RpcHelper } from '../rpc-helper'
 import { INetworkConfig } from '../network-config'
+import { HDAccount } from 'viem/accounts'
 
 /**
  * Account abstraction
@@ -9,7 +9,7 @@ export class Account {
   public readonly rpcHelper: RpcHelper
   constructor(
     public readonly config: INetworkConfig,
-    public readonly signer: SmartAccountSigner,
+    public readonly signer: HDAccount,
   ) {
     this.rpcHelper = new RpcHelper(config, signer)
   }
@@ -18,6 +18,6 @@ export class Account {
    * Gets Smart Account address
    */
   async getAddress(): Promise<string> {
-    return this.rpcHelper.aaSigner.getAddress()
+    return (await this.rpcHelper.getAccount()).address
   }
 }

@@ -1,10 +1,12 @@
-const ethers = window.DappyKit.ethers
-const wallet = window.DappyKit.Wallet.createRandom()
-const mnemonic = wallet.mnemonic.phrase
+const { mnemonicToAccount, generateMnemonic, english } = window.DappyKit.viemAccounts
 const optimismMainnetConfig = window.DappyKit.Config.optimismMainnetConfig
 
+function createRandomWallet() {
+  return mnemonicToAccount(generateMnemonic(english))
+}
+
 // example how to create SDK instance with mnemonic
-const sdkMainnet = new window.DappyKit.SDK(optimismMainnetConfig, mnemonic)
+const sdkMainnet = new window.DappyKit.SDK(optimismMainnetConfig, generateMnemonic(english))
 
 function getAuthServiceAddress() {
   const authServiceAddress = document.getElementById('authServiceAddress').value
@@ -111,7 +113,7 @@ async function createAuthRequest() {
     return
   }
 
-  const delegatedWallet = window.DappyKit.Wallet.createRandom()
+  const delegatedWallet = createRandomWallet()
   const applicationSigner = new window.DappyKit.Wallet(signer)
   let output = JSON.stringify(
     await sdkMainnet.farcasterClient.createAuthRequest(messageBytesProof, delegatedWallet.address, applicationSigner),
