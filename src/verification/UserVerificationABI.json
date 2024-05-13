@@ -95,16 +95,16 @@
     "type": "function"
   },
   {
-    "anonymous": false,
-    "inputs": [
+    "inputs": [],
+    "name": "defaultExpiryDuration",
+    "outputs": [
       {
-        "indexed": false,
         "internalType": "uint256",
-        "name": "newDuration",
+        "name": "",
         "type": "uint256"
       }
     ],
-    "name": "DefaultExpiryDurationChanged",
-    "type": "event"
+    "stateMutability": "view",
+    "type": "function"
   }
 ]
