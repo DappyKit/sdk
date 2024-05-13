@@ -1,5 +1,3 @@
-import fetch from 'node-fetch'
-
 export class HttpClient {
   constructor(public readonly baseUrl: string) {}
 

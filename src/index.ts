@@ -7,26 +7,15 @@ import { INetworkConfig } from './network-config'
 import { FilesystemChanges } from './filesystem-changes'
 import { Verification } from './verification'
 import { FarcasterClient } from './farcaster-client'
-import { HDAccount, mnemonicToAccount } from 'viem/accounts'
+import { HDAccount, mnemonicToAccount, privateKeyToAccount, generateMnemonic, english } from 'viem/accounts'
 import { HttpClient } from './http-client/http-client'
-import * as viem from 'viem'
-import * as viemAccounts from 'viem/accounts'
+
+const ViemUtils = { mnemonicToAccount, generateMnemonic, privateKeyToAccount, english }
 
 /**
  * Export all things that should be available for the user of the library
  */
-export {
-  Account,
-  Config,
-  Connections,
-  FilesystemChanges,
-  Gateway,
-  Utils,
-  Verification,
-  FarcasterClient,
-  viem,
-  viemAccounts,
-}
+export { Account, Config, Connections, FilesystemChanges, Gateway, Utils, Verification, FarcasterClient, ViemUtils }
 
 export class SDK {
   public readonly eoaSigner: HDAccount
@@ -64,8 +53,7 @@ declare global {
       Utils: typeof Utils
       Verification: typeof Verification
       FarcasterClient: typeof FarcasterClient
-      viem: typeof viem
-      viemAccounts: typeof viemAccounts
+      ViemUtils: typeof ViemUtils
     }
   }
 }

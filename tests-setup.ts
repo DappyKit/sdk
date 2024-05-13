@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import 'dotenv/config'
 import { isNoMnemonic } from './test/utils/sdk'
 
