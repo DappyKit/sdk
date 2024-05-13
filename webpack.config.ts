@@ -69,6 +69,14 @@ const base = async (env?: Partial<WebpackEnvParams>): Promise<Configuration> => 
   }
 
   return {
+    externals: {
+      '@scure/bip39/wordlists/korean': 'koreanWordlist',
+      '@scure/bip39/wordlists/japanese': 'japaneseWordlist',
+      '@scure/bip39/wordlists/french': 'frenchWordlist',
+      '@scure/bip39/wordlists/italian': 'italianWordlist',
+      '@scure/bip39/wordlists/spanish': 'spanishWordlist',
+      '@scure/bip39/wordlists/czech': 'czechWordlist',
+    },
     bail: Boolean(isProduction),
     mode: env?.mode || 'development',
     devtool: isProduction ? 'source-map' : 'cheap-module-source-map',
@@ -148,12 +156,17 @@ const base = async (env?: Partial<WebpackEnvParams>): Promise<Configuration> => 
 
 export default async (env?: Partial<WebpackEnvParams>): Promise<Configuration> => {
   // eslint-disable-next-line no-console
-  console.log('env', env)
+  console.log('webpack env', env)
 
   if (env?.debug) {
     return {
       ...(await base(env)),
-      plugins: [new BundleAnalyzerPlugin()],
+      plugins: [
+        new BundleAnalyzerPlugin({
+          analyzerMode: 'static', // Generates a static HTML file with the bundle report
+          openAnalyzer: true, // Opens the report in your default browser automatically
+        }),
+      ],
       profile: true,
     }
   }
