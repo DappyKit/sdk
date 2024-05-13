@@ -70,12 +70,12 @@ const base = async (env?: Partial<WebpackEnvParams>): Promise<Configuration> => 
 
   return {
     externals: {
-      '@scure/bip39/wordlists/korean': 'koreanWordlist',
-      '@scure/bip39/wordlists/japanese': 'japaneseWordlist',
-      '@scure/bip39/wordlists/french': 'frenchWordlist',
-      '@scure/bip39/wordlists/italian': 'italianWordlist',
-      '@scure/bip39/wordlists/spanish': 'spanishWordlist',
-      '@scure/bip39/wordlists/czech': 'czechWordlist',
+      '@scure/bip39/wordlists/korean': Path.resolve(__dirname, 'src/emptyModule.js'),
+      '@scure/bip39/wordlists/japanese': Path.resolve(__dirname, 'src/emptyModule.js'),
+      '@scure/bip39/wordlists/french': Path.resolve(__dirname, 'src/emptyModule.js'),
+      '@scure/bip39/wordlists/italian': Path.resolve(__dirname, 'src/emptyModule.js'),
+      '@scure/bip39/wordlists/spanish': Path.resolve(__dirname, 'src/emptyModule.js'),
+      '@scure/bip39/wordlists/czech': Path.resolve(__dirname, 'src/emptyModule.js'),
     },
     bail: Boolean(isProduction),
     mode: env?.mode || 'development',
