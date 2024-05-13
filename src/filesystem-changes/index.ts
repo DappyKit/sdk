@@ -6,23 +6,21 @@ import { assertNotEmptySigner } from '../connections/utils'
 import { encodeFunctionData, getContract, Hash, parseEther } from 'viem'
 import { HDAccount } from 'viem/accounts'
 import { assert0xEthAddress } from '../utils/eth'
+import { Abi } from 'abitype'
 
 export class FilesystemChanges {
-  /**
-   * File System Changes contract
-   */
-  public readonly contract
-
   constructor(
     public readonly config: INetworkConfig,
     public rpcHelper: RpcHelper,
     public signer: HDAccount,
-  ) {
-    this.contract = getContract({
-      address: config.filesystemChangesAddress as `0x${string}`,
-      abi,
+  ) {}
+
+  getTheContract() {
+    return getContract({
+      address: this.config.filesystemChangesAddress as `0x${string}`,
+      abi: abi as Abi,
       client: {
-        public: this.rpcHelper.publicClient,
+        public: this.rpcHelper.getPublicClient(),
       },
     })
   }
@@ -35,7 +33,7 @@ export class FilesystemChanges {
     assertNotEmptySigner(this.signer)
 
     const data = encodeFunctionData({
-      abi: this.contract.abi,
+      abi: this.getTheContract().abi,
       functionName: 'setUserChange',
       args: [multihash],
     })
@@ -55,7 +53,7 @@ export class FilesystemChanges {
     assertNotEmptySigner(this.signer)
 
     const data = encodeFunctionData({
-      abi: this.contract.abi,
+      abi: this.getTheContract().abi,
       functionName: 'setServiceChange',
       args: [multihash],
     })
@@ -75,7 +73,7 @@ export class FilesystemChanges {
     assertNotEmptySigner(this.signer)
 
     const data = encodeFunctionData({
-      abi: this.contract.abi,
+      abi: this.getTheContract().abi,
       functionName: 'removeChange',
       args: [isService],
     })
@@ -96,7 +94,7 @@ export class FilesystemChanges {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const [hash, hashFunction, size] = await this.contract.read.userChanges([address])
+    const [hash, hashFunction, size] = await this.getTheContract().read.userChanges([address])
 
     return {
       hash,
@@ -114,7 +112,7 @@ export class FilesystemChanges {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const [hash, hashFunction, size] = await this.contract.read.serviceChanges([address])
+    const [hash, hashFunction, size] = await this.getTheContract().read.serviceChanges([address])
 
     return {
       hash,

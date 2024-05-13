@@ -6,19 +6,21 @@ import { RpcHelper } from '../rpc-helper'
 import { HDAccount } from 'viem/accounts'
 import { encodeFunctionData, getContract, Hash, parseEther } from 'viem'
 import { assertNotEmptySigner } from './utils'
+import { Abi } from 'abitype'
 
 export class Connections {
-  public readonly contract
   constructor(
     public readonly config: INetworkConfig,
     public rpcHelper: RpcHelper,
     public signer: HDAccount,
-  ) {
-    this.contract = getContract({
-      address: config.socialConnectionsAddress as `0x${string}`,
-      abi,
+  ) {}
+
+  getTheContract() {
+    return getContract({
+      address: this.config.socialConnectionsAddress as `0x${string}`,
+      abi: abi as Abi,
       client: {
-        public: this.rpcHelper.publicClient,
+        public: this.rpcHelper.getPublicClient(),
       },
     })
   }
@@ -31,7 +33,7 @@ export class Connections {
     assertNotEmptySigner(this.signer)
 
     const data = encodeFunctionData({
-      abi: this.contract.abi,
+      abi: this.getTheContract().abi,
       functionName: 'setUserConnection',
       args: [multihash],
     })
@@ -50,7 +52,7 @@ export class Connections {
   async setServiceConnection(multihash: Multihash): Promise<Hash> {
     assertNotEmptySigner(this.signer)
     const data = encodeFunctionData({
-      abi: this.contract.abi,
+      abi: this.getTheContract().abi,
       functionName: 'setServiceConnection',
       args: [multihash],
     })
@@ -71,7 +73,7 @@ export class Connections {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const [hash, hashFunction, size] = await this.contract.read.userConnections([address])
+    const [hash, hashFunction, size] = await this.getTheContract().read.userConnections([address])
 
     return {
       hash,
@@ -89,7 +91,7 @@ export class Connections {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const [hash, hashFunction, size] = await this.contract.read.serviceConnections([address])
+    const [hash, hashFunction, size] = await this.getTheContract().read.serviceConnections([address])
 
     return {
       hash,

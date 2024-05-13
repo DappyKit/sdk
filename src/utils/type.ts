@@ -1,3 +1,10 @@
+import { Client, GetContractReturnType } from 'viem'
+import { Abi } from 'abitype'
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+export type ContractType = GetContractReturnType<Abi, Client, `0x${string}`>
+
 export type FlavoredType<Type, Name> = Type & { __tag__?: Name }
 
 export type BrandedType<Type, Name> = Type & { __tag__: Name }

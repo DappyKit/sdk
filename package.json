@@ -81,5 +81,8 @@
     "node-fetch": "^2.7.0",
     "permissionless": "^0.1.28",
     "viem": "^2.10.3"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

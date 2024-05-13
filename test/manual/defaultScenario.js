@@ -1,13 +1,10 @@
-const wallet = window.DappyKit.Wallet.createRandom()
-const mnemonic = wallet.mnemonic.phrase
+const { generateMnemonic, english } = window.DappyKit.viemAccounts
+const mnemonic = generateMnemonic(english)
 const optimismMainnetConfig = window.DappyKit.Config.optimismMainnetConfig
 const optimismSepoliaConfig = window.DappyKit.Config.optimismSepoliaConfig
 
-// example how to create SDK instance with wallet
-const sdkTestnet = new window.DappyKit.SDK(
-  optimismSepoliaConfig,
-  window.DappyKit.RpcHelperUtils.convertHDNodeWalletToAccountSigner(wallet),
-)
+// example how to create SDK instance with mnemonic
+const sdkTestnet = new window.DappyKit.SDK(optimismSepoliaConfig, mnemonic)
 
 // example how to create SDK instance with mnemonic
 const sdkMainnet = new window.DappyKit.SDK(optimismMainnetConfig, mnemonic)

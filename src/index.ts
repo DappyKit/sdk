@@ -4,16 +4,13 @@ import { Connections } from './connections'
 import * as Config from './network-config'
 import * as Utils from './utils'
 import { INetworkConfig } from './network-config'
-import { SmartAccountSigner } from '@alchemy/aa-core'
-import * as RpcHelperUtils from './rpc-helper/utils'
-import { ethers } from 'ethers'
 import { FilesystemChanges } from './filesystem-changes'
 import { Verification } from './verification'
 import { FarcasterClient } from './farcaster-client'
+import { HDAccount, mnemonicToAccount } from 'viem/accounts'
 import { HttpClient } from './http-client/http-client'
-import { convertHDNodeWalletToAccountSigner } from './rpc-helper/utils'
-
-const { Wallet, HDNodeWallet } = ethers
+import * as viem from 'viem'
+import * as viemAccounts from 'viem/accounts'
 
 /**
  * Export all things that should be available for the user of the library
@@ -21,20 +18,18 @@ const { Wallet, HDNodeWallet } = ethers
 export {
   Account,
   Config,
-  Gateway,
   Connections,
+  FilesystemChanges,
+  Gateway,
   Utils,
-  SmartAccountSigner,
-  RpcHelperUtils,
-  Wallet,
   Verification,
   FarcasterClient,
-  ethers,
+  viem,
+  viemAccounts,
 }
 
 export class SDK {
-  public readonly signer: SmartAccountSigner
-
+  public readonly eoaSigner: HDAccount
   public readonly account: Account
   public readonly gateway: Gateway
   public readonly connections: Connections
@@ -44,19 +39,14 @@ export class SDK {
 
   constructor(
     public readonly networkConfig: INetworkConfig,
-    signerOrMnemonic: SmartAccountSigner | string,
+    mnemonic: string,
   ) {
-    if (typeof signerOrMnemonic === 'string') {
-      this.signer = convertHDNodeWalletToAccountSigner(HDNodeWallet.fromPhrase(signerOrMnemonic))
-    } else {
-      this.signer = signerOrMnemonic
-    }
-
-    this.account = new Account(networkConfig, this.signer)
+    this.eoaSigner = mnemonicToAccount(mnemonic)
+    this.account = new Account(networkConfig, this.eoaSigner)
     this.gateway = new Gateway(networkConfig.appAuthUrl, networkConfig.verificationRpcUrl)
-    this.connections = new Connections(networkConfig, this.account.rpcHelper, this.signer)
-    this.filesystemChanges = new FilesystemChanges(networkConfig, this.account.rpcHelper, this.signer)
-    this.verification = new Verification(networkConfig, this.account.rpcHelper, this.signer)
+    this.connections = new Connections(networkConfig, this.account.rpcHelper, this.eoaSigner)
+    this.filesystemChanges = new FilesystemChanges(networkConfig, this.account.rpcHelper, this.eoaSigner)
+    this.verification = new Verification(networkConfig, this.account.rpcHelper)
     this.farcasterClient = new FarcasterClient(networkConfig, new HttpClient(networkConfig.farcasterAuthApiUrl))
   }
 }
@@ -65,19 +55,17 @@ declare global {
   interface Window {
     DappyKit: {
       SDK: typeof SDK
-      Account: typeof import('./account').Account
-      Gateway: typeof import('./gateway').Gateway
+      Account: typeof Account
+      Gateway: typeof Gateway
       GatewayUser: typeof import('./gateway/gateway-user').GatewayUser
-      Connections: typeof import('./connections').Connections
-      FilesystemChanges: typeof import('./filesystem-changes').FilesystemChanges
-      Config: typeof import('./network-config')
-      Utils: typeof import('./utils')
-      RpcHelperUtils: typeof RpcHelperUtils
-      Wallet: typeof Wallet
-      HDNodeWallet: typeof HDNodeWallet
-      Verification: typeof import('./verification').Verification
-      FarcasterClient: typeof import('./farcaster-client').FarcasterClient
-      ethers: typeof ethers
+      Connections: typeof Connections
+      FilesystemChanges: typeof FilesystemChanges
+      Config: typeof Config
+      Utils: typeof Utils
+      Verification: typeof Verification
+      FarcasterClient: typeof FarcasterClient
+      viem: typeof viem
+      viemAccounts: typeof viemAccounts
     }
   }
 }

@@ -5,6 +5,7 @@ import { ISigner } from '../service/delegated-fs/interfaces'
 import { extractSignerAddress, isEthAddress, prepareEthAddress } from '../utils/eth'
 import { createPublicClient, http } from 'viem'
 import { optimism } from 'viem/chains'
+import registryAbi from './registry-abi.json'
 
 export interface IUserInfo {
   nonce: number
@@ -229,7 +230,7 @@ export class FarcasterClient {
 
     return (await client.readContract({
       address: contractAddress as `0x${string}`,
-      abi: ['function custodyOf(uint256) external view returns (address)'],
+      abi: registryAbi,
       functionName: 'custodyOf',
       args: [fid],
     })) as string

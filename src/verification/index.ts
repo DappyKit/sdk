@@ -1,8 +1,7 @@
 import { INetworkConfig } from '../network-config'
 import { RpcHelper } from '../rpc-helper'
-import { SmartAccountSigner } from '@alchemy/aa-core'
-import { Contract } from '@ethersproject/contracts'
 import abi from './UserVerificationABI.json'
+import { getContract } from 'viem'
 
 /**
  * Methods for verification checks
@@ -11,8 +10,17 @@ export class Verification {
   constructor(
     public readonly config: INetworkConfig,
     public rpcHelper: RpcHelper,
-    public signer: SmartAccountSigner,
   ) {}
+
+  private getCustomContract(address: string) {
+    return getContract({
+      address: address as `0x${string}`,
+      abi,
+      client: {
+        public: this.rpcHelper.getPublicClient(),
+      },
+    })
+  }
 
   /**
    * Check if the smart account is verified by the verifier
@@ -33,9 +41,9 @@ export class Verification {
    * @param verifierAddress Verifier address
    */
   async getTokenId(smartAccountAddress: string, verifierAddress: string): Promise<string> {
-    const contract = new Contract(verifierAddress, abi, this.rpcHelper.aaProvider)
-
-    return (await contract.callStatic.getTokenId(smartAccountAddress)).toString()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return (await this.getCustomContract(verifierAddress).read.getTokenId([smartAccountAddress])).toString()
   }
 
   /**
@@ -44,9 +52,9 @@ export class Verification {
    * @param verifierAddress Verifier address
    */
   async isTokenExpired(tokenId: string, verifierAddress: string): Promise<boolean> {
-    const contract = new Contract(verifierAddress, abi, this.rpcHelper.aaProvider)
-
-    return contract.callStatic.isTokenExpired(tokenId)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return this.getCustomContract(verifierAddress).read.isTokenExpired([tokenId])
   }
 
   /**
@@ -55,9 +63,9 @@ export class Verification {
    * @param verifierAddress Verifier address
    */
   async timeBeforeExpiration(tokenId: string, verifierAddress: string): Promise<number> {
-    const contract = new Contract(verifierAddress, abi, this.rpcHelper.aaProvider)
-
-    return Number(await contract.callStatic.timeBeforeExpiration(tokenId))
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return Number(await this.getCustomContract(verifierAddress).read.timeBeforeExpiration([tokenId]))
   }
 
   /**
@@ -66,9 +74,9 @@ export class Verification {
    * @param verifierAddress Verifier address
    */
   async tokenExists(tokenId: string, verifierAddress: string): Promise<boolean> {
-    const contract = new Contract(verifierAddress, abi, this.rpcHelper.aaProvider)
-
-    return contract.callStatic.tokenExists(tokenId)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return this.getCustomContract(verifierAddress).read.tokenExists([tokenId])
   }
 
   /**
@@ -77,9 +85,9 @@ export class Verification {
    * @param verifierAddress Verifier address
    */
   async isManager(smartAccountAddress: string, verifierAddress: string): Promise<boolean> {
-    const contract = new Contract(verifierAddress, abi, this.rpcHelper.aaProvider)
-
-    return contract.callStatic.isManager(smartAccountAddress)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return this.getCustomContract(verifierAddress).read.isManager([smartAccountAddress])
   }
 
   /**
@@ -87,8 +95,8 @@ export class Verification {
    * @param verifierAddress Verifier address
    */
   async getDefaultExpiryDuration(verifierAddress: string): Promise<number> {
-    const contract = new Contract(verifierAddress, abi, this.rpcHelper.aaProvider)
-
-    return Number(await contract.callStatic.defaultExpiryDuration())
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return Number(await this.getCustomContract(verifierAddress).read.defaultExpiryDuration())
   }
 }
