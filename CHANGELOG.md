@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/DappyKit/sdk/compare/v2.0.0...v2.1.0) (2024-05-13)
+
+
+### Features
+
+* reduced lib size ([#23](https://github.com/DappyKit/sdk/issues/23)) ([3005e9d](https://github.com/DappyKit/sdk/commit/3005e9db9b870c800dd07d870243e17cee00eea2))
+
 ## [2.0.0](https://github.com/DappyKit/sdk/compare/v1.8.0...v2.0.0) (2024-05-13)
 
 
