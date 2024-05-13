@@ -1,4 +1,4 @@
-const { generateMnemonic, english } = window.DappyKit.viemAccounts
+const { generateMnemonic, english } = window.DappyKit.ViemUtils
 const mnemonic = generateMnemonic(english)
 const optimismMainnetConfig = window.DappyKit.Config.optimismMainnetConfig
 const optimismSepoliaConfig = window.DappyKit.Config.optimismSepoliaConfig

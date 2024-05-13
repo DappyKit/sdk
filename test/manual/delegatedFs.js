@@ -1,4 +1,4 @@
-const { mnemonicToAccount, generateMnemonic, english } = window.DappyKit.viemAccounts
+const { mnemonicToAccount, generateMnemonic, english } = window.DappyKit.ViemUtils
 const optimismMainnetConfig = window.DappyKit.Config.optimismMainnetConfig
 
 function createRandomWallet() {
