@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.0](https://github.com/DappyKit/sdk/compare/v2.5.0...v2.6.0) (2024-05-15)
+
+
+### Features
+
+* ok signer converter ([#33](https://github.com/DappyKit/sdk/issues/33)) ([db9b578](https://github.com/DappyKit/sdk/commit/db9b5786d83359f4fffc08d66d860165df95d6ae))
+
 ## [2.5.0](https://github.com/DappyKit/sdk/compare/v2.4.0...v2.5.0) (2024-05-15)
 
 
