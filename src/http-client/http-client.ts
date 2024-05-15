@@ -14,8 +14,12 @@ export class HttpClient {
   /**
    * Gets the JSON response for the given path
    * @param path Path to append to the base URL
+   * @param addRand Whether to add a random query parameter to the URL
    */
-  async getJson<T>(path: string): Promise<T> {
+  async getJson<T>(path: string, addRand = false): Promise<T> {
+    const separator = path.includes('?') ? '&' : '?'
+    path = addRand ? `${path}${separator}_rand=${Math.random()}` : path
+
     return (await (
       await fetch(this.getUrl(path), {
         method: 'GET',
@@ -40,7 +44,15 @@ export class HttpClient {
     ).json()) as T
   }
 
-  async getText(path: string): Promise<string> {
+  /**
+   * Gets the text response for the given path
+   * @param path Path to append to the base URL
+   * @param addRand Whether to add a random query parameter to the URL
+   */
+  async getText(path: string, addRand = false): Promise<string> {
+    const separator = path.includes('?') ? '&' : '?'
+    path = addRand ? `${path}${separator}_rand=${Math.random()}` : path
+
     return await (
       await fetch(this.getUrl(path), {
         method: 'GET',

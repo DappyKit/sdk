@@ -26,6 +26,7 @@ export class GatewayVerification {
 
     return this.httpClient.getJson<ISmartAccountInfoResponse>(
       `${this.version}/${INFO_PATH}/${METHOD_GET_SMART_ACCOUNT_INFO}?address=${address}`,
+      true,
     )
   }
 

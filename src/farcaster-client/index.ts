@@ -114,6 +114,7 @@ export class FarcasterClient {
   public async getUserInfo(userAddress: string, applicationAddress: string): Promise<IUserInfo> {
     return this.httpClient.getJson<IUserInfo>(
       `v1/delegated-fs/get-user-info?userAddress=${userAddress}&applicationAddress=${applicationAddress}`,
+      true,
     )
   }
 
@@ -156,6 +157,7 @@ export class FarcasterClient {
   public async getDataByAddress(userAddress: string, applicationAddress: string): Promise<string> {
     return this.httpClient.getText(
       `v1/delegated-fs/get-by-address?userAddress=${userAddress}&applicationAddress=${applicationAddress}`,
+      true,
     )
   }
 
@@ -167,6 +169,7 @@ export class FarcasterClient {
   public async getAuthProofByAddress(userAddress: string, applicationAddress: string): Promise<IGetProofResponse> {
     return this.httpClient.getJson<IGetProofResponse>(
       `v1/authorization/get-proof?userAddress=${userAddress}&applicationAddress=${applicationAddress}`,
+      true,
     )
   }
 
