@@ -17,7 +17,7 @@ export class GatewayUser {
    */
   async getInfo(address: string): Promise<UserInfo> {
     assert0xEthAddress(address)
-    const response = await this.httpClient.getJson(`${this.version}/${METHOD_GET_USER_INFO}/${address}`)
+    const response = await this.httpClient.getJson(`${this.version}/${METHOD_GET_USER_INFO}/${address}`, true)
     assertUserInfo(response)
 
     return response
