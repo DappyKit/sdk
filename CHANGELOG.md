@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.0](https://github.com/DappyKit/sdk/compare/v2.4.0...v2.5.0) (2024-05-15)
+
+
+### Features
+
+* improvements ([#31](https://github.com/DappyKit/sdk/issues/31)) ([e4684fc](https://github.com/DappyKit/sdk/commit/e4684fc3a66da9d26af5bf3dc113f7844ad8c87a))
+
 ## [2.4.0](https://github.com/DappyKit/sdk/compare/v2.3.0...v2.4.0) (2024-05-13)
 
 
