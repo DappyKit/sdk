@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.0](https://github.com/DappyKit/sdk/compare/v2.6.0...v2.7.0) (2024-05-27)
+
+
+### Features
+
+* check callback error signature ([#35](https://github.com/DappyKit/sdk/issues/35)) ([aca5a48](https://github.com/DappyKit/sdk/commit/aca5a48a4e4fd4ba2898226c160d25140686ec52))
+
 ## [2.6.0](https://github.com/DappyKit/sdk/compare/v2.5.0...v2.6.0) (2024-05-15)
 
 
