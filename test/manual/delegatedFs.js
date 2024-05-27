@@ -137,7 +137,7 @@ async function getAuthProofByAddress() {
 
   const proofData = await sdkMainnet.farcasterClient.getAuthProofByAddress(getUserAddress(), getApplicationAddress())
   try {
-    sdkMainnet.farcasterClient.checkCallbackData(
+    await sdkMainnet.farcasterClient.checkCallbackData(
       {
         userMainAddress: proofData.userMainAddress,
         userDelegatedAddress: proofData.userDelegatedAddress,
