@@ -58,6 +58,10 @@ export interface ICallbackDataCheck extends IAddressesInfo {
    * Auth service proof signature
    */
   proof: string
+  /**
+   * Error message in case of failure
+   */
+  errorMessage?: string
 }
 
 export class FarcasterClient {
@@ -207,7 +211,12 @@ export class FarcasterClient {
 
     if (
       (await extractSignerAddress(
-        DelegatedFs.getDelegatedText(data.userMainAddress, data.userDelegatedAddress, expectedApplicationAddress),
+        DelegatedFs.getDelegatedText(
+          data.userMainAddress,
+          data.userDelegatedAddress,
+          expectedApplicationAddress,
+          data.errorMessage,
+        ),
         data.proof,
       )) !== expectedAuthServiceAddress
     ) {
