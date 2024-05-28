@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.0](https://github.com/DappyKit/sdk/compare/v2.7.0...v2.8.0) (2024-05-28)
+
+
+### Features
+
+* check application exists ([#37](https://github.com/DappyKit/sdk/issues/37)) ([01c5fa3](https://github.com/DappyKit/sdk/commit/01c5fa3b4d69ab35bb221e2951cb2dec5cf5b576))
+
 ## [2.7.0](https://github.com/DappyKit/sdk/compare/v2.6.0...v2.7.0) (2024-05-27)
 
 
