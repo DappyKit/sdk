@@ -23,6 +23,11 @@ export interface ICreateResponse {
   message?: string
 }
 
+export interface IExistsResponse {
+  status: string
+  isExists: boolean
+}
+
 export interface IAddressesInfo {
   /**
    * User main address in the form of hex without 0x prefix
@@ -246,5 +251,15 @@ export class FarcasterClient {
       functionName: 'custodyOf',
       args: [fid],
     })) as string
+  }
+
+  /**
+   * Checks if the app with the address already exists.
+   * @param applicationAddress Application address
+   */
+  public async applicationExists(applicationAddress: string): Promise<boolean> {
+    return (
+      await this.httpClient.getJson<IExistsResponse>(`v1/app/exists?applicationAddress=${applicationAddress}`, true)
+    ).isExists
   }
 }

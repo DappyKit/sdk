@@ -184,3 +184,12 @@ async function getCustodyAddress() {
     setOutput('Error calling contract:' + JSON.stringify(error))
   }
 }
+
+async function applicationExists() {
+  try {
+    const result = await sdkMainnet.farcasterClient.applicationExists(getApplicationAddress())
+    setOutput(`Application exists: ${result}`)
+  } catch (error) {
+    setOutput('Error calling:' + JSON.stringify(error))
+  }
+}
