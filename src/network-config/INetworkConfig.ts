@@ -25,11 +25,11 @@ export interface INetworkConfig {
   /**
    * Address of the filesystem changes contract
    */
-  filesystemChangesAddress: string
+  filesystemChangesAddress: `0x${string}`
   /**
-   * Address of the user verification contract
+   * Address of the user verification contract. Different for different sources and networks
    */
-  userVerificationAddress: string
+  userVerificationAddress?: string
   /**
    * URL of the app auth server
    */

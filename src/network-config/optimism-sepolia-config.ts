@@ -18,9 +18,8 @@ export const optimismSepoliaConfig: INetworkConfig = {
    * https://docs.alchemy.com/reference/eth-supportedentrypoints
    */
   entryPointAddress: '0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789',
-  socialConnectionsAddress: '0xD8FC858221428B6b8ce304CE7aF1E838067Ea806',
-  filesystemChangesAddress: '0x204B8968E70084cDCBad327614334F1D7553aaF2',
-  userVerificationAddress: '0xBA44aaa2809931401ec099D798A5376cd678a12a',
+  socialConnectionsAddress: '0xB7C1C10A71d3C90f42351bec7E4BCd647C992743',
+  filesystemChangesAddress: '0x55043C8f3e8Ec55D2d60Acef83024F3b6da5AAf0',
   appAuthUrl: 'https://dappy.in',
   rpcUserOperationsUrl: 'https://opt-sepolia.g.alchemy.com/v2/vzozB27YgXBN9bXvQh5_AeyWVjDmfqGF',
   userOperationsExplorerUrl: '',
