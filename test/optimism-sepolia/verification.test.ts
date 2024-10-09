@@ -27,6 +27,8 @@ describe('Optimism Sepolia Verification', () => {
   })
 
   it(`should check if the token is expired`, async () => {
+    // to prolong the token, go to https://sepolia-optimism.etherscan.io/address/0x721462E34DCC00F8Bd0f0cD07762cfd482a0Fcb4#writeContract
+    // with 0xaE70aEb668D3f6De045765657999957388CDF025, call "extendTokenExpiry" with the tokenId received using "getTokenId"
     const sdk = await createSdk(optimismSepoliaConfig, Wallet.createRandom())
     const tokenId = await sdk.verification.getTokenId(verifiedAddress, verificationContractAddress)
     expect(await sdk.verification.isTokenExpired(tokenId, verificationContractAddress)).toEqual(false)
