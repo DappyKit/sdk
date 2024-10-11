@@ -5,6 +5,7 @@ import { LightSmartAccount, signerToLightSmartAccount } from 'permissionless/acc
 import { createSmartAccountClient, ENTRYPOINT_ADDRESS_V06, SmartAccountClient } from 'permissionless'
 import { ENTRYPOINT_ADDRESS_V06_TYPE } from 'permissionless/types'
 import { getChain } from '../utils/chain'
+import { assertNotEmptySigner } from '../connections/utils'
 
 export type LightSmartAccountType = LightSmartAccount<ENTRYPOINT_ADDRESS_V06_TYPE, HttpTransport, Chain>
 
@@ -17,7 +18,7 @@ export class RpcHelper {
 
   constructor(
     public readonly config: INetworkConfig,
-    public readonly eoaSigner: HDAccount,
+    public readonly eoaSigner?: HDAccount,
   ) {}
 
   /**
@@ -34,6 +35,8 @@ export class RpcHelper {
    * Get smart account instance. With ability to sign transactions.
    */
   async getAccount(): Promise<LightSmartAccountType> {
+    assertNotEmptySigner(this.eoaSigner)
+
     if (!this.account) {
       this.account = await signerToLightSmartAccount(this.getPublicClient(), {
         signer: this.eoaSigner,

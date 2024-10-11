@@ -9,7 +9,7 @@ export class Account {
   public readonly rpcHelper: RpcHelper
   constructor(
     public readonly config: INetworkConfig,
-    public readonly signer: HDAccount,
+    public readonly signer?: HDAccount,
   ) {
     this.rpcHelper = new RpcHelper(config, signer)
   }

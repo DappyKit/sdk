@@ -18,7 +18,7 @@ const ViemUtils = { mnemonicToAccount, generateMnemonic, privateKeyToAccount, en
 export { Account, Config, Connections, FilesystemChanges, Gateway, Utils, Verification, FarcasterClient, ViemUtils }
 
 export class SDK {
-  public readonly eoaSigner: HDAccount
+  public readonly eoaSigner?: HDAccount
   public readonly account: Account
   public readonly gateway: Gateway
   public readonly connections: Connections
@@ -28,9 +28,12 @@ export class SDK {
 
   constructor(
     public readonly networkConfig: INetworkConfig,
-    mnemonic: string,
+    mnemonic?: string,
   ) {
-    this.eoaSigner = mnemonicToAccount(mnemonic)
+    if (mnemonic) {
+      this.eoaSigner = mnemonicToAccount(mnemonic)
+    }
+
     this.account = new Account(networkConfig, this.eoaSigner)
     this.gateway = new Gateway(networkConfig.appAuthUrl, networkConfig.verificationRpcUrl)
     this.connections = new Connections(networkConfig, this.account.rpcHelper, this.eoaSigner)
