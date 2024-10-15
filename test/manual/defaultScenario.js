@@ -1,19 +1,19 @@
 const { generateMnemonic, english } = window.DappyKit.ViemUtils
-const mnemonic = generateMnemonic(english)
 const optimismMainnetConfig = window.DappyKit.Config.optimismMainnetConfig
-const optimismSepoliaConfig = window.DappyKit.Config.optimismSepoliaConfig
+const optimismSepoliaConfig = {
+  ...window.DappyKit.Config.optimismSepoliaConfig,
+  socialConnectionsAddress: '0xD8FC858221428B6b8ce304CE7aF1E838067Ea806',
+  filesystemChangesAddress: '0x204B8968E70084cDCBad327614334F1D7553aaF2',
+}
 
 // example how to create SDK instance with mnemonic
-const sdkTestnet = new window.DappyKit.SDK(optimismSepoliaConfig, mnemonic)
+const sdkTestnet = new window.DappyKit.SDK(optimismSepoliaConfig)
 
 // example how to create SDK instance with mnemonic
-const sdkMainnet = new window.DappyKit.SDK(optimismMainnetConfig, mnemonic)
+const sdkMainnet = new window.DappyKit.SDK(optimismMainnetConfig)
 
 async function defaultScenario() {
   const verificationContractAddress = '0x721462E34DCC00F8Bd0f0cD07762cfd482a0Fcb4'
-
-  // eslint-disable-next-line no-console
-  console.log('Smart Account address', await sdkTestnet.account.getAddress())
 
   // eslint-disable-next-line no-console
   console.log(

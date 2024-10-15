@@ -12,12 +12,12 @@ export class FilesystemChanges {
   constructor(
     public readonly config: INetworkConfig,
     public rpcHelper: RpcHelper,
-    public signer: HDAccount,
+    public signer?: HDAccount,
   ) {}
 
   getTheContract() {
     return getContract({
-      address: this.config.filesystemChangesAddress as `0x${string}`,
+      address: this.config.filesystemChangesAddress,
       abi: abi as Abi,
       client: {
         public: this.rpcHelper.getPublicClient(),
@@ -39,7 +39,7 @@ export class FilesystemChanges {
     })
 
     return (await this.rpcHelper.getAccountClient()).sendTransaction({
-      to: this.config.filesystemChangesAddress as `0x${string}`,
+      to: this.config.filesystemChangesAddress,
       value: parseEther('0'),
       data,
     })
@@ -59,7 +59,7 @@ export class FilesystemChanges {
     })
 
     return (await this.rpcHelper.getAccountClient()).sendTransaction({
-      to: this.config.filesystemChangesAddress as `0x${string}`,
+      to: this.config.filesystemChangesAddress,
       value: parseEther('0'),
       data,
     })
@@ -79,7 +79,7 @@ export class FilesystemChanges {
     })
 
     return (await this.rpcHelper.getAccountClient()).sendTransaction({
-      to: this.config.filesystemChangesAddress as `0x${string}`,
+      to: this.config.filesystemChangesAddress,
       value: parseEther('0'),
       data,
     })

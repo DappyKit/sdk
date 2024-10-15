@@ -12,7 +12,7 @@ export class Connections {
   constructor(
     public readonly config: INetworkConfig,
     public rpcHelper: RpcHelper,
-    public signer: HDAccount,
+    public signer?: HDAccount,
   ) {}
 
   getTheContract() {
