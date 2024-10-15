@@ -1,6 +1,5 @@
 import { SDK } from '../../src'
 import { INetworkConfig } from '../../src/network-config'
-import { HDNodeWallet } from 'ethers'
 import 'dotenv/config'
 
 /**
@@ -29,6 +28,10 @@ export const EMPTY_MULTIHASH = {
 /**
  * Create SDK instance
  */
-export async function createSdk(config: INetworkConfig, wallet: HDNodeWallet): Promise<SDK> {
-  return new SDK(config, wallet.mnemonic!.phrase)
+export async function createSdk(config: INetworkConfig, mnemonic: string): Promise<SDK> {
+  if (!mnemonic) {
+    throw new Error('Mnemonic is required')
+  }
+
+  return new SDK(config, mnemonic)
 }

@@ -99,7 +99,7 @@ export function makeHexString<L extends number>(input: string | number | Uint8Ar
   throw new TypeError('Not HexString compatible type!')
 }
 
-export function is0xHexString<Length extends number = number>(s: unknown, len?: number): s is string {
+export function is0xHexString(s: unknown, len?: number): s is string {
   if (typeof s !== 'string') {
     return false
   }

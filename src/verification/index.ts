@@ -30,6 +30,7 @@ export class Verification {
   async getIsVerified(smartAccountAddress: string, verifierAddress: string): Promise<boolean> {
     try {
       return (await this.getTokenId(smartAccountAddress, verifierAddress)) !== '0'
+      // eslint-disable-next-line unused-imports/no-unused-vars
     } catch (e) {
       return false
     }
