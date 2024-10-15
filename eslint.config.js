@@ -29,6 +29,7 @@ module.exports = [
       "unused-imports": require("eslint-plugin-unused-imports"),
     },
     rules: {
+      "prettier/prettier": "error",
       "indent": ["error", 2], // Core ESLint rule
       "array-bracket-newline": ["error", "consistent"],
       "strict": ["error", "safe"],

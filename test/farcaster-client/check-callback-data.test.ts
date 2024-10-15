@@ -1,18 +1,17 @@
 import { createSdk } from '../utils/sdk'
 import { optimismMainnetConfig } from '../../src/network-config'
-import { Wallet } from 'ethers'
 import { ICallbackDataCheck } from '../../src/farcaster-client'
 import { DelegatedFs } from '../../src/service/delegated-fs/delegated-fs'
-import { createRandomMnemonic } from '../utils/wallet'
+import { createISignerWallet, createRandomMnemonic, createRandomWallet } from '../utils/wallet'
 
 describe('Farcaster Client', () => {
   it('should check correct callback data', async () => {
     const sdk = await createSdk(optimismMainnetConfig, createRandomMnemonic())
 
-    const userMainWallet = Wallet.createRandom()
-    const userDelegatedWallet = Wallet.createRandom()
-    const applicationWallet = Wallet.createRandom()
-    const authServiceWallet = Wallet.createRandom()
+    const userMainWallet = createRandomWallet()
+    const userDelegatedWallet = createRandomWallet()
+    const applicationWallet = createRandomWallet()
+    const authServiceWallet = createISignerWallet()
 
     const proof = await DelegatedFs.createDelegateSignature(
       userMainWallet.address,
@@ -36,10 +35,10 @@ describe('Farcaster Client', () => {
   it('should throw on incorrect callback data', async () => {
     const sdk = await createSdk(optimismMainnetConfig, createRandomMnemonic())
 
-    const userMainWallet = Wallet.createRandom()
-    const userDelegatedWallet = Wallet.createRandom()
-    const applicationWallet = Wallet.createRandom()
-    const authServiceWallet = Wallet.createRandom()
+    const userMainWallet = createRandomWallet()
+    const userDelegatedWallet = createRandomWallet()
+    const applicationWallet = createISignerWallet()
+    const authServiceWallet = createRandomWallet()
 
     const proof = await DelegatedFs.createDelegateSignature(
       userMainWallet.address,
@@ -64,10 +63,10 @@ describe('Farcaster Client', () => {
   it('should check correct callback data with error', async () => {
     const sdk = await createSdk(optimismMainnetConfig, createRandomMnemonic())
 
-    const userMainWallet = Wallet.createRandom()
-    const userDelegatedWallet = Wallet.createRandom()
-    const applicationWallet = Wallet.createRandom()
-    const authServiceWallet = Wallet.createRandom()
+    const userMainWallet = createRandomWallet()
+    const userDelegatedWallet = createRandomWallet()
+    const applicationWallet = createRandomWallet()
+    const authServiceWallet = createISignerWallet()
 
     const errorMessage = 'My Custom Error'
 
@@ -95,10 +94,10 @@ describe('Farcaster Client', () => {
   it('should throw with incorrect error', async () => {
     const sdk = await createSdk(optimismMainnetConfig, createRandomMnemonic())
 
-    const userMainWallet = Wallet.createRandom()
-    const userDelegatedWallet = Wallet.createRandom()
-    const applicationWallet = Wallet.createRandom()
-    const authServiceWallet = Wallet.createRandom()
+    const userMainWallet = createRandomWallet()
+    const userDelegatedWallet = createRandomWallet()
+    const applicationWallet = createRandomWallet()
+    const authServiceWallet = createISignerWallet()
 
     const errorMessage = 'My Custom Error'
     const proofError = await DelegatedFs.createDelegateSignature(
