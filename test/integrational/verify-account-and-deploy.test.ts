@@ -1,10 +1,10 @@
 import { createDappyAuthMock } from '../utils/dappy-auth-mock'
 import { createSdk } from '../utils/sdk'
 import { AppParamsResult, AuthStrategy } from '../../src/gateway/interface'
-import { ethers } from 'ethers'
 import { UserInfo, UserVerificationStatus } from '../../src/gateway/user/interface'
 import { GatewayUser } from '../../src/gateway'
 import { optimismSepoliaConfig } from '../../src/network-config'
+import { createRandomMnemonic, createRandomWallet } from '../utils/wallet'
 
 describe("Verify User's external account and deploy Smart Account", () => {
   let getUserInfoMock: jest.SpyInstance
@@ -27,10 +27,10 @@ describe("Verify User's external account and deploy Smart Account", () => {
   }
 
   it('should create an account via the gateway', async () => {
-    const sdk = await createSdk(optimismSepoliaConfig, ethers.Wallet.createRandom())
+    const sdk = await createSdk(optimismSepoliaConfig, createRandomMnemonic())
 
     const appId = 1
-    const appSigner = ethers.Wallet.createRandom()
+    const appSigner = createRandomWallet()
     // mock of Dappy Auth is like a browser on a device
     const dappyAuthMock = createDappyAuthMock()
     const saAddress = '0x4597b6281dDa29CA5a750CAe29Be3fd19c31727c'

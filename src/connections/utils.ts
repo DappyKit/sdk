@@ -1,5 +1,5 @@
 import { assertNotEmptyObject } from '../utils/type'
-import { Signer } from 'ethers'
+import { HDAccount } from 'viem/accounts'
 
 /**
  * Asserts that a value is not empty and of type Signer.
@@ -9,6 +9,6 @@ import { Signer } from 'ethers'
  *
  * @returns {void}
  */
-export function assertNotEmptySigner(value: unknown): asserts value is Signer {
+export function assertNotEmptySigner(value: unknown): asserts value is HDAccount {
   assertNotEmptyObject(value, 'Signer is required')
 }

@@ -53,7 +53,6 @@ export function isNumber(value: unknown): value is number {
 /**
  * Checks that value is an object
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
 export function isObject(value: unknown): value is object {
   return typeof value === 'object'
 }
