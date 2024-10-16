@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.0.0](https://github.com/DappyKit/sdk/compare/v2.8.0...v3.0.0) (2024-10-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* passing a signer is not required ([#44](https://github.com/DappyKit/sdk/issues/44))
+
+### Features
+
+* check application exists ([#41](https://github.com/DappyKit/sdk/issues/41)) ([72d8e71](https://github.com/DappyKit/sdk/commit/72d8e71fbbb517d7ad6228fcbfb3e30127ae33fa))
+* passing a signer is not required ([#44](https://github.com/DappyKit/sdk/issues/44)) ([9bbe409](https://github.com/DappyKit/sdk/commit/9bbe409125eb166a442ebcbaf5036e87006b8b8f))
+
 ## [2.8.0](https://github.com/DappyKit/sdk/compare/v2.7.0...v2.8.0) (2024-05-28)
 
 
