@@ -1,6 +1,6 @@
 # Changelog
 
-## [3.0.0](https://github.com/DappyKit/sdk/compare/v2.8.0...v3.0.0) (2024-10-16)
+## [3.0.0](https://github.com/DappyKit/sdk/compare/v2.8.0...v3.0.0) (2024-11-28)
 
 
 ### ⚠ BREAKING CHANGES
