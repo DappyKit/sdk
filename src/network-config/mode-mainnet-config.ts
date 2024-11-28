@@ -11,11 +11,11 @@ export const modeMainnetConfig: INetworkConfig = {
   /**
    * Create2 Address of Social Connections contract
    */
-  socialConnectionsAddress: '0xB7C1C10A71d3C90f42351bec7E4BCd647C992743',
+  socialConnectionsAddress: '0x99583220489a0e4217911ECf50680918F6a8B958',
   /**
    * Create2 Address of Filesystem Changes contract
    */
-  filesystemChangesAddress: '0x55043C8f3e8Ec55D2d60Acef83024F3b6da5AAf0',
+  filesystemChangesAddress: '0x30C974bE6581e3a00595d0b7C1ba7A8A91413e1f',
   appAuthUrl: 'https://dappy.in',
   rpcUserOperationsUrl: '',
   userOperationsExplorerUrl: '',
