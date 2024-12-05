@@ -31,6 +31,8 @@
     "rootDirs": [
       "src"
     ],
-    "outDir": "dist"
+    "outDir": "dist",
+    "sourceMap": true,
+    "declarationMap": false,
   }
 }

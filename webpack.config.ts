@@ -54,7 +54,6 @@ const base = async (env?: Partial<WebpackEnvParams>): Promise<Configuration> => 
       )
     }
     // change node modules to browser modules according to packageJson.browser mapping
-    // eslint-disable-next-line guard-for-in
     const browserModuleMapping = PackageJson.browser as { [key: string]: string }
     // eslint-disable-next-line guard-for-in
     for (const nodeReference in browserModuleMapping) {
@@ -80,7 +79,8 @@ const base = async (env?: Partial<WebpackEnvParams>): Promise<Configuration> => 
     },
     bail: Boolean(isProduction),
     mode: env?.mode || 'development',
-    devtool: isProduction ? 'source-map' : 'cheap-module-source-map',
+    // disable for production until revised
+    devtool: isProduction ? false : 'cheap-module-source-map',
     entry,
     output: {
       path,
