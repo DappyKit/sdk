@@ -1,6 +1,6 @@
 {
   "name": "@dappykit/sdk",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Web3 SDK for DApps",
   "main": "dist/index.min.js",
   "types": "dist/src/index.d.ts",
