@@ -78,8 +78,8 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "permissionless": "^0.1.28",
-    "viem": "^2.21.26"
+    "permissionless": "^0.2.21",
+    "viem": "^2.21.22"
   },
   "engines": {
     "node": ">=20"
