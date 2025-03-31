@@ -75,6 +75,81 @@ Enable users to interact with the blockchain without paying gas fees:
 // No additional code required!
 ```
 
+## Scalable Offchain Processing for Social Applications
+
+DappyKit solves one of the most significant challenges in blockchain-based social applications: handling high-volume user interactions efficiently while maintaining data integrity and ownership.
+
+### How It Works
+
+The SDK employs a hybrid on-chain/off-chain architecture that achieves scalability without sacrificing decentralization:
+
+1. **Offchain Data Processing**: User actions (adding friends, updating profiles, sharing content) are processed offchain through IPFS or similar decentralized storage
+2. **Content-Addressed Storage**: All changes are stored using content-addressed multihashes
+3. **On-chain References**: Only the final multihash references are stored on-chain, dramatically reducing gas costs
+4. **Data Verification**: Cryptographic verification ensures data integrity between offchain content and on-chain references
+
+This architecture allows applications to process millions of user interactions offchain while anchoring only the critical reference data on the blockchain.
+
+### Technical Implementation
+
+The SocialConnections and FilesystemChanges contracts maintain a minimal on-chain footprint:
+
+```javascript
+// Process multiple friend requests offchain
+const friendsList = await processOffchainFriendRequests(user, requests);
+
+// Generate the content hash for the final state
+const multihash = generateMultihash(friendsList);
+
+// Store only the final reference on-chain
+await sdk.connections.setUserConnection(multihash);
+```
+
+### Real-World Use Cases
+
+#### Decentralized Social Networks
+
+Build social networks where users maintain ownership of their social graph even if the frontend application changes:
+
+- Users can interact with thousands of accounts without expensive on-chain transactions
+- Social connections remain portable across different applications
+- If an application shuts down, users retain access to their connections
+
+#### Content Publishing Platforms
+
+Create Medium or Substack alternatives where content ownership remains with creators:
+
+- Authors can edit content multiple times offchain 
+- Only finalized versions need blockchain transactions
+- Content history is maintained through IPFS versioning
+- Authors can migrate between platforms while bringing their content and audience
+
+#### Community Management 
+
+Build DAO or community tools with efficient member management:
+
+- Admins can process hundreds of membership changes offchain
+- Role assignments and permissions are managed efficiently
+- Only periodic state updates hit the blockchain
+- Permission verification remains fast and reliable
+
+#### User-Owned Digital Identity
+
+Create comprehensive identity systems with manageable blockchain footprint:
+
+- Users can continuously update their profile information offchain
+- Verification credentials can be issued and verified without transactions
+- Identity remains portable across the entire ecosystem
+- Verification status is cryptographically secure
+
+### Benefits of this Approach
+
+- **Cost Efficiency**: Drastically reduces the number of on-chain transactions
+- **Scalability**: Handles millions of operations with minimal blockchain load
+- **User Experience**: Provides Web2-like responsiveness with Web3 ownership
+- **Network Efficiency**: Reduces blockchain congestion and gas costs
+- **Data Ownership**: Users maintain full control of their data without managing individual transactions
+
 ## Current Usage
 
 DappyKit is used by blockchain projects across the Superchain ecosystem:
