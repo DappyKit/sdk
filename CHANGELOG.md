@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/DappyKit/sdk/compare/v3.0.0...v3.0.1) (2024-12-05)
+
+
+### Bug Fixes
+
+* works with react ([#54](https://github.com/DappyKit/sdk/issues/54)) ([aaa19b7](https://github.com/DappyKit/sdk/commit/aaa19b75c73ae1cca35fd62215580365bf444336))
+
 ## [3.0.0](https://github.com/DappyKit/sdk/compare/v2.8.0...v3.0.0) (2024-11-28)
 
 
