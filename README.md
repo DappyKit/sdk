@@ -1,12 +1,16 @@
 # DappyKit SDK
 
-DappyKit is a TypeScript library for SocialFi apps, making it easy to join EVM-based blockchains such as Ethereum and Optimism. It stands out by allowing no-gas transactions, which makes using blockchains cheaper and easier. 
+## Overview
 
-DappyKit helps manage social connections and public data. With rollup gateways and ERC-4337, it's built to bring in up to 1 billion users at minimal cost.
+DappyKit is a TypeScript library that simplifies building mini applications on Superchain networks. It enables gasless transactions, making blockchain interactions more accessible and affordable for users.
 
-## Using
+## Features
 
-...
+- **Gasless Transactions** - Users can interact with blockchain without paying gas fees
+- **Social Connections** - Easily manage user relationships and connections
+- **Decentralized Data** - Store and manage public data securely
+- **Multi-chain Support** - Built for Superchain networks including Optimism and others
+- **Developer Friendly** - Simple API designed for both Web2 and Web3 developers
 
 ## Installation
 
@@ -28,8 +32,7 @@ npm run test
 ```shell
 MNEMONIC='YOUR_MNEMONIC' EXPECTED_OWNER_ADDRESS='YOUR_OWNER_ADDRESS' EXPECTED_SMART_ACCOUNT_ADDRESS='YOUR_ACCOUNT_ADDRESS' npm test
 ```
-`MNEMONIC` is the mnemonic phrase from an Optimism Sepolia wallet with funds.
 
-`EXPECTED_OWNER_ADDRESS` is the expected address of the main wallet derived from `MNEMONIC`.
-
-`EXPECTED_SMART_ACCOUNT_ADDRESS` is the expected address of the Smart Account, with `EXPECTED_OWNER_ADDRESS` as its Externally Owned Account (EOA).
+- `MNEMONIC` is the mnemonic phrase from an Optimism Sepolia wallet with funds
+- `EXPECTED_OWNER_ADDRESS` is the expected address of the main wallet derived from `MNEMONIC`
+- `EXPECTED_SMART_ACCOUNT_ADDRESS` is the expected address of the Smart Account, with `EXPECTED_OWNER_ADDRESS` as its Externally Owned Account (EOA)
