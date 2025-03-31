@@ -105,6 +105,64 @@ const multihash = generateMultihash(friendsList);
 await sdk.connections.setUserConnection(multihash);
 ```
 
+## Cost Analysis: Traditional vs. DappyKit Approach
+
+All changes in DappyKit are stored under a user's Smart Account, giving users complete control over their data. This architecture offers significant cost advantages compared to traditional blockchain approaches.
+
+### Individual vs. Grouped Transactions
+
+#### Transaction Costs
+- Base transaction cost on Optimism: ~$0.003 per transaction
+
+#### Scenario: 1 Million Users with 1,000 Changes Each
+
+**Traditional Approach (Every Change as Separate Transaction)**
+- Cost per user: 1,000 changes × $0.003 = $3 per user annually
+- Total cost for 1M users: $3,000,000 annually
+
+**DappyKit User-Paid Approach (Daily Grouping)**
+- Each user makes 1 transaction daily to store all their changes
+- Cost per user: 365 days × $0.003 = $1.095 per user annually
+- Total cost for 1M users: $1,095,000 annually
+- Savings: $1,905,000 annually (63.5% reduction)
+
+**DappyKit Service-Delegated Approach**
+- Service makes 1 transaction daily, storing changes for all users
+- Daily cost: $0.003 (single transaction for all users)
+- Annual cost: 365 days × $0.003 = $1.095 total
+- Cost per user: $0.000001095 (virtually zero)
+- Savings vs. traditional: $2,999,998.91 annually (99.9999% reduction)
+
+### Cost Comparison Table
+
+| Approach | Cost Per User (Annual) | Total Cost for 1M Users (Annual) | Savings vs. Traditional |
+|----------|------------------------|----------------------------------|-------------------------|
+| Traditional (Individual Txs) | $3.00 | $3,000,000.00 | - |
+| DappyKit (User-Paid Daily) | $1.10 | $1,095,000.00 | $1,905,000.00 (63.5%) |
+| DappyKit (Service-Delegated) | $0.000001 | $1.10 | $2,999,998.90 (99.9999%) |
+
+This translates to approximately:
+- Traditional approach: $250,000 monthly infrastructure costs
+- DappyKit user-paid: $91,250 monthly costs
+- DappyKit service-delegated: $0.09 monthly costs
+
+### Perspectives on Cost Efficiency
+
+#### For Developers
+- Deploy applications with virtually zero infrastructure costs using service delegation
+- Scale to millions of users with fixed transaction costs instead of linear increases
+- Redirect resources from gas subsidies to feature development and user acquisition
+
+#### For Business/Marketing Teams
+- Reduce user acquisition costs by eliminating onboarding gas fees
+- Offer unlimited actions in free tier with sustainable economics
+- Create premium tiers based on features rather than transaction limits
+
+#### For End Users
+- Perform thousands of actions without gas fees (when using service delegation)
+- Maintain data ownership without prohibitive costs
+- Experience Web2-like responsiveness with Web3 ownership benefits
+
 ### Real-World Use Cases
 
 #### Decentralized Social Networks
