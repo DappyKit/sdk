@@ -8,6 +8,12 @@
 
 DappyKit is a TypeScript SDK for building web3 social applications on Superchain networks. With over 30,000 active users and 200+ projects using our platform, DappyKit provides developers with tools to create blockchain experiences without typical friction points.
 
+## Installation
+
+```shell
+npm i @dappykit/sdk
+```
+
 ## Key Benefits
 
 - **Gasless Transactions** - Remove barriers to web3 adoption with transactions that don't require gas fees
@@ -214,12 +220,6 @@ DappyKit is used by blockchain projects across the Superchain ecosystem:
 
 - Powers 200+ applications across multiple chains
 - Integrates with major protocols in the Optimism ecosystem
-
-## Installation
-
-```shell
-npm i @dappykit/sdk
-```
 
 ## Quick Start
 
